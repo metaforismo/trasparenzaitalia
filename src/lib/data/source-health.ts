@@ -1,3 +1,5 @@
+import { discoverLatestStatePaymentDataset } from "@/lib/bdap-payments";
+import { classifyFreshness, type Freshness } from "@/lib/data/freshness";
 import { fetchOfficialSource } from "@/lib/data/source-fetch";
 import {
   SOURCE_IDS,
@@ -16,6 +18,7 @@ export type SourceHealth = {
   owner: string;
   integration: SourceIntegrationState;
   reachability: SourceReachability;
+  freshness: Freshness;
   checkedAt: string;
   latencyMs: number | null;
   detail: string | null;
@@ -38,14 +41,28 @@ type CkanDatastoreHealthResponse = {
   };
 };
 
-type CkanPackageListResponse = {
+type CkanResourceResponse = {
   success?: boolean;
-  result?: unknown[];
+  result?: {
+    last_modified?: unknown;
+    metadata_modified?: unknown;
+  };
 };
 
 const ACTIVE_SOURCES = new Set<SourceId>(["ipa", "openbdap"]);
 
-function baseHealth(sourceId: SourceId): Omit<SourceHealth, "reachability" | "latencyMs" | "detail" | "recordCount"> {
+function text(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const cleaned = value.trim();
+  return cleaned || null;
+}
+
+function baseHealth(
+  sourceId: SourceId,
+): Omit<
+  SourceHealth,
+  "reachability" | "freshness" | "latencyMs" | "detail" | "recordCount"
+> {
   const policy = SOURCE_POLICIES[sourceId];
   return {
     sourceId,
@@ -64,106 +81,104 @@ function baseHealth(sourceId: SourceId): Omit<SourceHealth, "reachability" | "la
   };
 }
 
-async function probeIpa(): Promise<SourceHealth> {
-  const base = baseHealth("ipa");
-  const startedAt = performance.now();
+async function getIpaRecordCount(): Promise<number | null> {
   const url = `https://indicepa.gov.it/ipa-dati/api/3/action/datastore_search?${new URLSearchParams({
     resource_id: IPA_ENTI_RESOURCE_ID,
     limit: "0",
   }).toString()}`;
+  const response = await fetchOfficialSource("ipa", url, {
+    kind: "discovery",
+    headers: { Accept: "application/json" },
+    tags: ["health:ipa", "dataset:ipa-enti"],
+  });
 
-  try {
-    const response = await fetchOfficialSource("ipa", url, {
-      kind: "discovery",
-      headers: { Accept: "application/json" },
-      tags: ["health:ipa", "dataset:ipa-enti"],
-    });
-    const latencyMs = Math.round(performance.now() - startedAt);
+  if (!response.ok) throw new Error(`IPA datastore HTTP ${response.status}`);
+  const payload = (await response.json()) as CkanDatastoreHealthResponse;
+  if (!payload.success) throw new Error("Risposta datastore IPA non valida");
+  return typeof payload.result?.total === "number" ? payload.result.total : null;
+}
 
-    if (!response.ok) {
-      return {
-        ...base,
-        reachability: "down",
-        latencyMs,
-        detail: `HTTP ${response.status}`,
-        recordCount: null,
-      };
-    }
+async function getIpaResourceTimestamp(): Promise<string | null> {
+  const url = `https://indicepa.gov.it/ipa-dati/api/3/action/resource_show?${new URLSearchParams({
+    id: IPA_ENTI_RESOURCE_ID,
+  }).toString()}`;
+  const response = await fetchOfficialSource("ipa", url, {
+    kind: "discovery",
+    headers: { Accept: "application/json" },
+    tags: ["health:ipa", "metadata:ipa-enti"],
+  });
 
-    const payload = (await response.json()) as CkanDatastoreHealthResponse;
-    if (!payload.success) {
-      return {
-        ...base,
-        reachability: "down",
-        latencyMs,
-        detail: "Risposta CKAN non valida",
-        recordCount: null,
-      };
-    }
+  if (!response.ok) throw new Error(`IPA resource_show HTTP ${response.status}`);
+  const payload = (await response.json()) as CkanResourceResponse;
+  if (!payload.success || !payload.result) {
+    throw new Error("Risposta resource_show IPA non valida");
+  }
 
-    return {
-      ...base,
-      reachability: "up",
-      latencyMs,
-      detail: "Data API Enti raggiungibile",
-      recordCount: typeof payload.result?.total === "number" ? payload.result.total : null,
-    };
-  } catch (error) {
+  return text(payload.result.last_modified) ?? text(payload.result.metadata_modified);
+}
+
+async function probeIpa(): Promise<SourceHealth> {
+  const base = baseHealth("ipa");
+  const startedAt = performance.now();
+  const [countResult, timestampResult] = await Promise.allSettled([
+    getIpaRecordCount(),
+    getIpaResourceTimestamp(),
+  ]);
+  const latencyMs = Math.round(performance.now() - startedAt);
+
+  if (countResult.status === "rejected") {
     return {
       ...base,
       reachability: "down",
-      latencyMs: Math.round(performance.now() - startedAt),
-      detail: error instanceof Error ? error.message : "Errore sconosciuto",
+      freshness: classifyFreshness("ipa", null),
+      latencyMs,
+      detail:
+        countResult.reason instanceof Error
+          ? countResult.reason.message
+          : "Errore sconosciuto durante il probe IPA",
       recordCount: null,
     };
   }
+
+  const sourceTimestamp =
+    timestampResult.status === "fulfilled" ? timestampResult.value : null;
+  const metadataDetail =
+    timestampResult.status === "rejected"
+      ? " · timestamp ufficiale non disponibile"
+      : "";
+
+  return {
+    ...base,
+    reachability: "up",
+    freshness: classifyFreshness("ipa", sourceTimestamp),
+    latencyMs,
+    detail: `Data API Enti raggiungibile${metadataDetail}`,
+    recordCount: countResult.value,
+  };
 }
 
 async function probeOpenBdap(): Promise<SourceHealth> {
   const base = baseHealth("openbdap");
   const startedAt = performance.now();
-  const url = "https://bdap-opendata.rgs.mef.gov.it/SpodCkanApi/api/3/action/package_list";
 
   try {
-    const response = await fetchOfficialSource("openbdap", url, {
-      kind: "discovery",
-      headers: { Accept: "application/json" },
-      tags: ["health:openbdap", "catalog:openbdap"],
+    const latest = await discoverLatestStatePaymentDataset("mission", {
+      maxMonthsBack: 6,
     });
-    const latencyMs = Math.round(performance.now() - startedAt);
-
-    if (!response.ok) {
-      return {
-        ...base,
-        reachability: "down",
-        latencyMs,
-        detail: `HTTP ${response.status}`,
-        recordCount: null,
-      };
-    }
-
-    const payload = (await response.json()) as CkanPackageListResponse;
-    if (!payload.success || !Array.isArray(payload.result)) {
-      return {
-        ...base,
-        reachability: "down",
-        latencyMs,
-        detail: "Catalogo CKAN non valido",
-        recordCount: null,
-      };
-    }
 
     return {
       ...base,
       reachability: "up",
-      latencyMs,
-      detail: "Catalogo OpenBDAP raggiungibile",
-      recordCount: payload.result.length,
+      freshness: classifyFreshness("openbdap", latest.metadataModified),
+      latencyMs: Math.round(performance.now() - startedAt),
+      detail: `Ultimo rilascio pagamenti trovato: ${latest.title}`,
+      recordCount: null,
     };
   } catch (error) {
     return {
       ...base,
       reachability: "down",
+      freshness: classifyFreshness("openbdap", null),
       latencyMs: Math.round(performance.now() - startedAt),
       detail: error instanceof Error ? error.message : "Errore sconosciuto",
       recordCount: null,
@@ -175,6 +190,7 @@ function mappedSource(sourceId: SourceId): SourceHealth {
   return {
     ...baseHealth(sourceId),
     reachability: "not-probed",
+    freshness: classifyFreshness(sourceId, null),
     latencyMs: null,
     detail: "Adapter dati non ancora attivo: non attribuiamo uno stato di rete artificiale.",
     recordCount: null,
