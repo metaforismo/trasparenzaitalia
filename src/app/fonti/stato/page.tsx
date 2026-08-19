@@ -8,16 +8,34 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Stato delle fonti",
   description:
-    "Stato operativo, cadenza e policy di aggiornamento delle fonti ufficiali integrate in Trasparenza Italia.",
+    "Stato operativo, freschezza e policy di aggiornamento delle fonti ufficiali integrate in Trasparenza Italia.",
 };
 
 const numberFormatter = new Intl.NumberFormat("it-IT");
+const dateFormatter = new Intl.DateTimeFormat("it-IT", {
+  dateStyle: "medium",
+  timeStyle: "short",
+  timeZone: "Europe/Rome",
+});
 
 function duration(seconds: number): string {
   if (seconds % 86_400 === 0) return `${seconds / 86_400} g`;
   if (seconds % 3_600 === 0) return `${seconds / 3_600} h`;
   if (seconds % 60 === 0) return `${seconds / 60} min`;
   return `${seconds} s`;
+}
+
+function sourceAge(seconds: number | null): string {
+  if (seconds === null) return "età non disponibile";
+  if (seconds < 3_600) return `${Math.max(0, Math.floor(seconds / 60))} min fa`;
+  if (seconds < 86_400) return `${Math.floor(seconds / 3_600)} h fa`;
+  return `${Math.floor(seconds / 86_400)} g fa`;
+}
+
+function sourceDate(value: string | null): string {
+  if (!value) return "timestamp non disponibile";
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? value : dateFormatter.format(date);
 }
 
 function reachabilityLabel(source: SourceHealth): string {
@@ -30,6 +48,18 @@ function reachabilityClass(source: SourceHealth): string {
   if (source.reachability === "up") return styles.up;
   if (source.reachability === "down") return styles.down;
   return styles.notProbed;
+}
+
+function freshnessLabel(source: SourceHealth): string {
+  if (source.freshness.state === "fresh") return "Dato fresco";
+  if (source.freshness.state === "stale") return "Dato oltre soglia";
+  return "Freschezza non classificata";
+}
+
+function freshnessClass(source: SourceHealth): string {
+  if (source.freshness.state === "fresh") return styles.fresh;
+  if (source.freshness.state === "stale") return styles.stale;
+  return styles.unknown;
 }
 
 export default async function SourceStatusPage() {
@@ -54,8 +84,8 @@ export default async function SourceStatusPage() {
           <h1 className={styles.title}>Quanto sono vivi i dati che stai guardando.</h1>
           <p className={styles.lead}>
             Separiamo lo stato del nostro adapter dalla disponibilità dell&apos;upstream e dalla
-            cadenza di pubblicazione dichiarata. Una fonte raggiungibile non è necessariamente
-            fresca; una fonte temporaneamente offline non rende falso l&apos;ultimo dato già acquisito.
+            freschezza del dato pubblicato. Una fonte raggiungibile non è necessariamente fresca;
+            una fonte temporaneamente offline non rende falso l&apos;ultimo dato già acquisito.
           </p>
         </div>
 
@@ -89,10 +119,11 @@ export default async function SourceStatusPage() {
           </p>
         </div>
         <div>
-          <h2>La CI del codice resta separata.</h2>
+          <h2>Reachability e freshness sono due misure diverse.</h2>
           <p>
-            Un outage di AgID o RGS non deve far fallire TypeScript o la production build. I probe live
-            vivono nel livello di observability e refresh, mentre la CI verifica che il software sia corretto.
+            Il primo stato misura se l&apos;adapter riesce a interrogare la fonte. Il secondo usa,
+            quando disponibile, un timestamp pubblicato dalla fonte e lo confronta con una soglia
+            coerente con la sua cadenza. Se non abbiamo abbastanza informazioni, mostriamo “unknown”.
           </p>
         </div>
       </section>
@@ -102,7 +133,7 @@ export default async function SourceStatusPage() {
           <span>Fonte</span>
           <span>Integrazione</span>
           <span>Stato upstream</span>
-          <span>Freshness policy</span>
+          <span>Freschezza</span>
         </div>
 
         {sources.map((source) => (
@@ -118,6 +149,7 @@ export default async function SourceStatusPage() {
             <div className={styles.meta}>
               <strong>{source.integration === "active" ? "Adapter attivo" : "Mappata"}</strong>
               <span>Cadenza: {source.policy.cadence}</span>
+              <span>Discovery: {duration(source.policy.discoveryRevalidateSeconds)}</span>
             </div>
 
             <div className={styles.health}>
@@ -134,10 +166,12 @@ export default async function SourceStatusPage() {
             </div>
 
             <div className={styles.policy}>
-              <strong>
-                discovery ogni {duration(source.policy.discoveryRevalidateSeconds)}
-              </strong>
-              <span>dati: {duration(source.policy.dataRevalidateSeconds)}</span>
+              <span className={`${styles.status} ${freshnessClass(source)}`}>
+                {freshnessLabel(source)}
+              </span>
+              <strong>{sourceDate(source.freshness.sourceTimestamp)}</strong>
+              <span>{sourceAge(source.freshness.ageSeconds)}</span>
+              <span>dati ricontrollati ogni {duration(source.policy.dataRevalidateSeconds)}</span>
               <span>{source.policy.cadenceNote}</span>
             </div>
           </article>
@@ -145,9 +179,10 @@ export default async function SourceStatusPage() {
       </section>
 
       <p className={styles.footerNote}>
-        “Non ancora sondato” non significa che il sito ufficiale sia offline: significa che Trasparenza Italia
-        non ha ancora un adapter sufficientemente stabile da attribuire uno stato operativo automatico.
-        Preferiamo mostrare un&apos;assenza di misura invece di inventare un semaforo.
+        “Non ancora sondato” non significa che il sito ufficiale sia offline. “Freschezza non classificata”
+        non significa che il dato sia vecchio. In entrambi i casi significa che Trasparenza Italia non ha
+        ancora evidenza sufficiente per attribuire automaticamente quello stato. Preferiamo un&apos;assenza di
+        misura a un semaforo inventato.
       </p>
     </main>
   );
