@@ -20,7 +20,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-          cache: npm
 
       - name: Install dependencies
         run: npm install
@@ -44,6 +43,8 @@ jobs:
         run: |
           if [ "${{ steps.impeccable.outcome }}" = "failure" ]; then
             echo "::warning::Impeccable found design issues. The detector is diagnostic in this phase; fix or document them before turning it into a blocking gate."
-          else
+          elif [ "${{ steps.impeccable.outcome }}" = "success" ]; then
             echo "Impeccable detector passed."
+          else
+            echo "Impeccable detector did not run because an earlier required step failed."
           fi
