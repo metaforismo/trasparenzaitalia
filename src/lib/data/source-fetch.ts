@@ -89,13 +89,25 @@ function revalidateFor(sourceId: SourceId, kind: SourceFetchKind): number {
     : policy.dataRevalidateSeconds;
 }
 
+function requestHeaders(input: HeadersInit | undefined): Headers {
+  const headers = new Headers(input);
+  if (!headers.has("Accept")) {
+    headers.set(
+      "Accept",
+      "application/json, text/csv;q=0.9, text/plain;q=0.8, */*;q=0.5",
+    );
+  }
+  if (!headers.has("User-Agent")) headers.set("User-Agent", USER_AGENT);
+  return headers;
+}
+
 /**
  * Server-only read helper for official upstreams.
  *
- * The wrapper centralises network policy but deliberately leaves schema and
- * HTTP semantics to each adapter. It retries only transient failures and
- * returns the final Response even when it is non-2xx, so an adapter cannot
- * accidentally hide a permanent upstream error.
+ * Network policy lives here; schema validation stays inside each adapter.
+ * Only GET/HEAD are allowed. Transient failures may be retried once according
+ * to the source policy, while permanent 4xx responses are returned unchanged
+ * to the adapter so they cannot be silently hidden.
  */
 export async function fetchOfficialSource(
   sourceId: SourceId,
@@ -106,30 +118,44 @@ export async function fetchOfficialSource(
   const url = assertOfficialUrl(sourceId, rawUrl);
   const kind = options.kind ?? "data";
   const retries = Math.max(0, policy.maxRetries);
-  const tags = [...new Set([...policy.tags, ...(options.tags ?? [])])];
+  const cacheTags = [...new Set([...policy.tags, ...(options.tags ?? [])])];
   const revalidate = options.revalidateSeconds ?? revalidateFor(sourceId, kind);
 
-  const { kind: _kind, revalidateSeconds: _revalidate, tags: _tags, ...requestOptions } = options;
+  const {
+    kind: _kind,
+    revalidateSeconds: _revalidateSeconds,
+    tags: _tags,
+    signal: callerSignal,
+    headers,
+    ...requestOptions
+  } = options;
   void _kind;
-  void _revalidate;
+  void _revalidateSeconds;
   void _tags;
+
+  const method = (requestOptions.method ?? "GET").toUpperCase();
+  if (method !== "GET" && method !== "HEAD") {
+    throw new SourceFetchError(
+      `Metodo ${method} non consentito dal fetch layer read-only`,
+      sourceId,
+    );
+  }
 
   let lastError: unknown;
 
   for (let attempt = 0; attempt <= retries; attempt += 1) {
+    if (callerSignal?.aborted) throw callerSignal.reason;
+
     try {
       const response = await fetch(url, {
         ...requestOptions,
-        method: requestOptions.method ?? "GET",
-        headers: {
-          Accept: "application/json, text/csv;q=0.9, text/plain;q=0.8, */*;q=0.5",
-          "User-Agent": USER_AGENT,
-          ...requestOptions.headers,
-        },
-        signal: composedSignal(options.signal, policy.timeoutMs),
+        method,
+        headers: requestHeaders(headers),
+        redirect: requestOptions.redirect ?? "error",
+        signal: composedSignal(callerSignal, policy.timeoutMs),
         next: {
           revalidate,
-          tags,
+          tags: cacheTags,
         },
       });
 
@@ -140,6 +166,7 @@ export async function fetchOfficialSource(
       await response.body?.cancel();
     } catch (error) {
       lastError = error;
+      if (callerSignal?.aborted) throw callerSignal.reason;
       if (attempt === retries) {
         throw new SourceFetchError(
           `Errore di rete verso ${sourceId} dopo ${attempt + 1} tentativo/i`,
