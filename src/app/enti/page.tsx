@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { RegistryTypeChart } from "@/components/charts/registry-type-chart";
 import {
   getIpaRegistryStats,
   IPA_ENTI_DATASET_URL,
@@ -7,6 +8,7 @@ import {
   searchIpaEntities,
   type IpaSearchResult,
 } from "@/lib/ipa";
+import { getIpaTypeDistribution, type IpaTypeStat } from "@/lib/ipa-stats";
 import styles from "./enti.module.css";
 
 export const dynamic = "force-dynamic";
@@ -28,18 +30,45 @@ function locationLabel(indirizzo: string | null, cap: string | null): string {
   return indirizzo ?? cap ?? "Sede non indicata nel record IPA";
 }
 
+function formatObservedAt(value: string | null): string {
+  if (!value) return "Non disponibile";
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "Non disponibile";
+
+  return new Intl.DateTimeFormat("it-IT", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "Europe/Rome",
+  }).format(date);
+}
+
 export default async function EntiPage({ searchParams }: PageProps) {
   const params = await searchParams;
   const query = first(params.q).trim().slice(0, 180);
   const canSearch = query.length >= 2;
 
   let stats: Awaited<ReturnType<typeof getIpaRegistryStats>> | null = null;
+  let distribution: IpaTypeStat[] = [];
+  let distributionObservedAt: string | null = null;
   let result: IpaSearchResult | null = null;
   let upstreamError = false;
 
-  try {
-    stats = await getIpaRegistryStats();
-  } catch {
+  const [statsResult, distributionResult] = await Promise.allSettled([
+    getIpaRegistryStats(),
+    getIpaTypeDistribution(8),
+  ]);
+
+  if (statsResult.status === "fulfilled") {
+    stats = statsResult.value;
+  }
+
+  if (distributionResult.status === "fulfilled") {
+    distribution = distributionResult.value.records;
+    distributionObservedAt = distributionResult.value.observedAt;
+  }
+
+  if (statsResult.status === "rejected" && distributionResult.status === "rejected") {
     upstreamError = true;
   }
 
@@ -58,12 +87,12 @@ export default async function EntiPage({ searchParams }: PageProps) {
         <div>
           <span className={styles.kicker}>REGISTRO NAZIONALE · FONTE AGID</span>
           <h1 className={styles.title}>
-            Cerca una Pubblica Amministrazione. <em>Parti dalla fonte.</em>
+            Ogni ente pubblico, <em>in un solo punto.</em>
           </h1>
           <p className={styles.lead}>
-            L&apos;Indice PA diventa la chiave di ingresso di Trasparenza Italia. Ogni ente viene
-            identificato con il suo Codice IPA e collegato, progressivamente, a spesa, appalti,
-            progetti, consulenze e documenti pubblici senza perdere la provenienza originale.
+            L&apos;Indice PA è la chiave anagrafica di Trasparenza Italia. Ogni amministrazione viene
+            identificata con il proprio Codice IPA e potrà essere collegata a pagamenti, appalti,
+            progetti, consulenze e documenti mantenendo sempre la provenienza ufficiale.
           </p>
         </div>
 
@@ -74,88 +103,106 @@ export default async function EntiPage({ searchParams }: PageProps) {
           </div>
           <div className={styles.sourceMeta}>
             <div>
-              <b>{stats ? numberFormatter.format(stats.total) : "—"}</b>
-              <span>record nel dataset al momento dell&apos;interrogazione</span>
+              <b>Frequenza</b>
+              <span>giornaliera</span>
             </div>
             <div>
-              <b>Giornaliera</b>
-              <span>frequenza ufficiale di aggiornamento del dataset</span>
+              <b>Licenza</b>
+              <span>{IPA_LICENSE}</span>
             </div>
             <div>
-              <b>{IPA_LICENSE}</b>
-              <span>licenza indicata da AgID per la risorsa</span>
+              <b>Accesso</b>
+              <span>CKAN Data API + SQL</span>
             </div>
             <div>
-              <b>Data API</b>
-              <span>accesso CKAN strutturato, non scraping della pagina</span>
+              <b>Resource ID</b>
+              <span>{IPA_ENTI_RESOURCE_ID}</span>
             </div>
           </div>
           <a className={styles.sourceLink} href={IPA_ENTI_DATASET_URL} target="_blank" rel="noreferrer">
-            Apri il dataset ufficiale <span>↗</span>
+            Verifica sul dataset AgID <span>↗</span>
           </a>
         </aside>
       </section>
 
       <section className={styles.searchSection} aria-labelledby="ricerca-enti">
-        <span className={styles.kicker}>RICERCA DIRETTA SUL DATASTORE IPA</span>
+        <span className={styles.kicker}>CERCA NEL DATASTORE UFFICIALE</span>
         <form className={styles.searchForm} action="/enti" method="get">
-          <label htmlFor="q" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)" }}>
-            Cerca un ente
-          </label>
+          <label className={styles.visuallyHidden} htmlFor="q">Cerca un ente</label>
           <input
             className={styles.input}
             id="q"
             name="q"
             type="search"
             defaultValue={query}
-            placeholder="Es. Comune di Milano, Ministero dell'Interno, Regione Calabria, codice IPA..."
+            placeholder="Comune di Milano, Ministero dell'Interno, Regione Calabria, codice IPA…"
             autoComplete="off"
           />
-          <button className={styles.searchButton} type="submit">Cerca</button>
+          <button className={styles.searchButton} type="submit">Cerca ente</button>
         </form>
         <p className={styles.searchHelp} id="ricerca-enti">
-          Ricerca full-text sul dataset ufficiale AgID. Inserisci almeno due caratteri. I risultati non sono una copia locale simulata:
-          vengono letti dal datastore IPA e normalizzati dal server di Trasparenza Italia.
+          Ricerca full-text direttamente sul datastore IPA. I risultati non sono una copia dimostrativa:
+          vengono letti dalla Data API AgID e normalizzati dal server.
         </p>
       </section>
 
-      <section className={styles.stats} aria-label="Stato integrazione IPA">
-        <div className={styles.stat}>
-          <strong>{stats ? numberFormatter.format(stats.total) : "—"}</strong>
-          <span>enti e soggetti presenti nel dataset IPA interrogato</span>
+      <section className={styles.registrySnapshot} aria-labelledby="snapshot-registro">
+        <div className={styles.snapshotSummary}>
+          <span className={styles.kicker}>SNAPSHOT DEL REGISTRO</span>
+          <div className={styles.snapshotNumber}>
+            <strong>{stats ? numberFormatter.format(stats.total) : "—"}</strong>
+            <span>record presenti nel dataset Enti</span>
+          </div>
+          <p>
+            È il perimetro anagrafico da cui partiremo per collegare le fonti economiche. Il numero
+            descrive i record IPA, non il numero di sole amministrazioni centrali né la spesa pubblica.
+          </p>
+          <dl className={styles.snapshotMeta}>
+            <div>
+              <dt>Interrogazione</dt>
+              <dd>{formatObservedAt(stats?.observedAt ?? distributionObservedAt)}</dd>
+            </div>
+            <div>
+              <dt>Dati economici simulati</dt>
+              <dd>nessuno</dd>
+            </div>
+          </dl>
         </div>
-        <div className={styles.stat}>
-          <strong>1</strong>
-          <span>identificativo canonico già usato: Codice IPA</span>
-        </div>
-        <div className={styles.stat}>
-          <strong>0</strong>
-          <span>valori economici inventati o interpolati nella pagina</span>
+
+        <div className={styles.chartPanel}>
+          <div className={styles.chartHeading}>
+            <div>
+              <span className={styles.kicker}>COMPOSIZIONE</span>
+              <h2 id="snapshot-registro">Tipologie più presenti</h2>
+            </div>
+            <span className={styles.chartSource}>query SQL · IPA</span>
+          </div>
+          <RegistryTypeChart data={distribution} />
         </div>
       </section>
 
       {!query && (
         <div className={styles.empty}>
-          <strong>Il registro è collegato. Ora cerca un ente.</strong>
+          <strong>Cerca un ente per aprire la sua scheda unica.</strong>
           <p>
-            Da questa anagrafe costruiremo la pagina unica di ogni amministrazione: identità IPA,
-            pagamenti SIOPE, contratti ANAC, CUP, PNRR, OpenCoesione, consulenze e documenti di trasparenza.
+            La scheda contiene già identità, sede, contatti e provenienza IPA. I prossimi ingestori
+            aggiungeranno pagamenti SIOPE, contratti ANAC, CUP, PNRR, OpenCoesione e consulenze.
           </p>
         </div>
       )}
 
       {query && !canSearch && (
         <div className={styles.empty}>
-          <strong>Query troppo corta.</strong>
-          <p>Inserisci almeno due caratteri per interrogare il datastore IPA.</p>
+          <strong>Scrivi almeno due caratteri.</strong>
+          <p>La ricerca parte dopo due caratteri per evitare interrogazioni troppo ampie sul datastore pubblico.</p>
         </div>
       )}
 
       {upstreamError && canSearch && !result && (
         <div className={styles.error}>
-          <strong>La fonte IPA non è raggiungibile in questo momento.</strong>
+          <strong>La fonte IPA non risponde in questo momento.</strong>
           <p>
-            Trasparenza Italia non sostituisce il dato ufficiale con valori di fallback. Riprova più tardi oppure consulta direttamente il dataset AgID.
+            Non sostituiamo il dato ufficiale con valori di fallback. Riprova più tardi oppure apri direttamente il dataset AgID.
           </p>
         </div>
       )}
@@ -168,7 +215,7 @@ export default async function EntiPage({ searchParams }: PageProps) {
               <h2>{numberFormatter.format(result.total)} corrispondenze per “{query}”</h2>
             </div>
             <p>
-              Mostriamo al massimo 30 risultati per richiesta. Ogni scheda porta al record normalizzato e conserva il riferimento alla fonte IPA.
+              Fino a 30 risultati per richiesta. Ogni scheda conserva il Codice IPA e il collegamento alla fonte.
             </p>
           </div>
 
@@ -210,23 +257,6 @@ export default async function EntiPage({ searchParams }: PageProps) {
           )}
         </>
       )}
-
-      <section className={styles.sourceCard} style={{ marginTop: 38 }}>
-        <div className={styles.sourceCardTop}>
-          <strong>Provenienza tecnica</strong>
-          <span className={styles.live}>VERIFICABILE</span>
-        </div>
-        <div className={styles.sourceMeta}>
-          <div>
-            <b>Resource ID</b>
-            <span>{IPA_ENTI_RESOURCE_ID}</span>
-          </div>
-          <div>
-            <b>Proprietario</b>
-            <span>Agenzia per l&apos;Italia Digitale</span>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }
