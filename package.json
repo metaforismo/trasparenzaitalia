@@ -4,7 +4,7 @@
   "private": true,
   "description": "Dashboard civica open source sui dati della spesa pubblica italiana.",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.13.0"
   },
   "scripts": {
     "dev": "next dev",
