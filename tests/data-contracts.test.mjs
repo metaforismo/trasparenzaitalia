@@ -4,6 +4,7 @@ import {
   parseDelimitedRecords,
   parsePublicNumber,
 } from "../src/lib/data/delimited.ts";
+import { classifyFreshness } from "../src/lib/data/freshness.ts";
 import {
   SOURCE_IDS,
   SOURCE_POLICIES,
@@ -49,4 +50,26 @@ test("every registered source has a complete operational policy", () => {
     assert.ok(policy.maxRetries >= 0 && policy.maxRetries <= 2);
     assert.ok(policy.tags.includes(`source:${sourceId}`));
   }
+});
+
+test("freshness uses source cadence thresholds without inventing them", () => {
+  const now = new Date("2026-08-19T20:00:00.000Z");
+
+  const freshIpa = classifyFreshness("ipa", "2026-08-18T20:00:00.000Z", now);
+  assert.equal(freshIpa.state, "fresh");
+  assert.equal(freshIpa.ageSeconds, 86_400);
+
+  const staleIpa = classifyFreshness("ipa", "2026-08-16T20:00:00.000Z", now);
+  assert.equal(staleIpa.state, "stale");
+
+  const periodicWithoutThreshold = classifyFreshness(
+    "regis",
+    "2026-08-19T12:00:00.000Z",
+    now,
+  );
+  assert.equal(periodicWithoutThreshold.state, "unknown");
+  assert.equal(periodicWithoutThreshold.ageSeconds, 28_800);
+
+  const futureTimestamp = classifyFreshness("ipa", "2026-08-20T20:00:00.000Z", now);
+  assert.equal(futureTimestamp.state, "unknown");
 });
