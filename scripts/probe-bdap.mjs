@@ -24,7 +24,7 @@ async function json(url) {
   } catch {
     body = text.slice(0, 600);
   }
-  return { status: response.status, body, headers: Object.fromEntries(response.headers) };
+  return { status: response.status, body };
 }
 
 function summarizePackage(pkg) {
@@ -43,6 +43,34 @@ function summarizePackage(pkg) {
           datastore_active: resource?.datastore_active,
         }))
       : [],
+  };
+}
+
+async function csvHeader(uuid) {
+  const dumpUrl = `${BASE}/SpodCkanApi/api/3/datastore/dump/${uuid}.csv`;
+  const response = await fetch(dumpUrl, {
+    headers: {
+      ...headers,
+      Accept: "text/csv",
+      Range: "bytes=0-4095",
+    },
+    signal: AbortSignal.timeout(12000),
+  });
+
+  if (!response.body) {
+    return { status: response.status, sample: "no body" };
+  }
+
+  const reader = response.body.getReader();
+  const first = await reader.read();
+  await reader.cancel();
+  const sample = first.value ? new TextDecoder("latin1").decode(first.value).slice(0, 1500) : "";
+
+  return {
+    status: response.status,
+    contentType: response.headers.get("content-type"),
+    contentRange: response.headers.get("content-range"),
+    sample: sample.replaceAll("\n", "\\n"),
   };
 }
 
@@ -65,17 +93,20 @@ for (const product of products) {
     ].filter((value) => typeof value === "string" && /^[0-9a-f-]{36}$/i.test(value));
 
     for (const uuid of [...new Set(candidates)].slice(0, 3)) {
-      const dumpUrl = `${BASE}/SpodCkanApi/api/3/datastore/dump/${uuid}.csv`;
-      const dump = await fetch(dumpUrl, {
-        headers: { ...headers, Accept: "text/csv" },
-        signal: AbortSignal.timeout(15000),
-      });
-      const sample = (await dump.text()).slice(0, 1000);
-      console.log("dump", uuid, dump.status, dump.headers.get("content-type"), sample.replaceAll("\n", "\\n"));
+      try {
+        const dump = await csvHeader(uuid);
+        console.log("dump", uuid, JSON.stringify(dump));
+      } catch (error) {
+        console.log("dump", uuid, "ERROR", error instanceof Error ? error.message : String(error));
+      }
 
-      const odataUrl = `${BASE}/ODataProxy/MdData('${uuid}@rgs')/DataRows?$top=1`;
-      const odata = await json(odataUrl);
-      console.log("odata", uuid, odata.status, JSON.stringify(odata.body).slice(0, 1500));
+      try {
+        const odataUrl = `${BASE}/ODataProxy/MdData('${uuid}@rgs')/DataRows?$top=1`;
+        const odata = await json(odataUrl);
+        console.log("odata", uuid, odata.status, JSON.stringify(odata.body).slice(0, 1800));
+      } catch (error) {
+        console.log("odata", uuid, "ERROR", error instanceof Error ? error.message : String(error));
+      }
     }
   }
 }
