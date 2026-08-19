@@ -8,7 +8,6 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-  type TooltipContentProps,
 } from "recharts";
 import type { IpaTypeStat } from "@/lib/ipa-stats";
 import styles from "./registry-type-chart.module.css";
@@ -35,20 +34,6 @@ function shortLabel(label: string): string {
   }
 
   return label.length > 30 ? `${label.slice(0, 28)}…` : label;
-}
-
-function RegistryTooltip({ active, payload }: TooltipContentProps<number, string>) {
-  if (!active || !payload?.length) return null;
-
-  const point = payload[0]?.payload as IpaTypeStat | undefined;
-  if (!point) return null;
-
-  return (
-    <div className={styles.tooltip}>
-      <span>{point.label}</span>
-      <strong>{integerFormatter.format(point.value)} record</strong>
-    </div>
-  );
 }
 
 export function RegistryTypeChart({ data }: { data: IpaTypeStat[] }) {
@@ -92,7 +77,19 @@ export function RegistryTypeChart({ data }: { data: IpaTypeStat[] }) {
               tick={{ fill: "#b6c8d2", fontSize: 11 }}
             />
             <Tooltip
-              content={RegistryTooltip}
+              content={({ active, payload }) => {
+                if (!active || !payload?.length) return null;
+
+                const point = payload[0]?.payload as IpaTypeStat | undefined;
+                if (!point) return null;
+
+                return (
+                  <div className={styles.tooltip}>
+                    <span>{point.label}</span>
+                    <strong>{integerFormatter.format(point.value)} record</strong>
+                  </div>
+                );
+              }}
               cursor={{ fill: "rgba(255,255,255,0.025)" }}
               animationDuration={140}
             />
