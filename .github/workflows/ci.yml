@@ -24,9 +24,31 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Probe OpenBDAP contracts
-        continue-on-error: true
-        run: node scripts/probe-bdap.mjs
+      - name: Validate OpenBDAP snapshot client
+        run: |
+          node --experimental-strip-types --input-type=module <<'NODE'
+          const { getStateSpendingSnapshot } = await import('./src/lib/bdap-payments.ts');
+          const snapshot = await getStateSpendingSnapshot();
+          const summary = {
+            period: snapshot.period,
+            totalPaid: snapshot.totalPaid,
+            missions: snapshot.counts.missions,
+            administrations: snapshot.counts.administrations,
+            economicCategories: snapshot.counts.economicCategories,
+            consistency: snapshot.consistency,
+            sourcePackage: snapshot.sources.mission.packageId,
+          };
+          console.log(JSON.stringify(summary, null, 2));
+          if (!Number.isFinite(snapshot.totalPaid) || snapshot.totalPaid <= 0) {
+            throw new Error('OpenBDAP snapshot has an invalid total');
+          }
+          if (snapshot.counts.missions < 1) {
+            throw new Error('OpenBDAP snapshot has no missions');
+          }
+          if (snapshot.period.year < 2020 || snapshot.period.month < 1 || snapshot.period.month > 12) {
+            throw new Error('OpenBDAP snapshot period is invalid');
+          }
+          NODE
 
       - name: Lint
         run: npm run lint
