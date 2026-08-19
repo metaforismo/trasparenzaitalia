@@ -24,6 +24,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Probe OpenBDAP contracts
+        continue-on-error: true
+        run: node scripts/probe-bdap.mjs
+
       - name: Lint
         run: npm run lint
 
