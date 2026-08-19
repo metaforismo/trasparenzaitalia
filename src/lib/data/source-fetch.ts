@@ -10,7 +10,7 @@ type NextFetchOptions = RequestInit & {
   };
 };
 
-type SourceFetchOptions = Omit<NextFetchOptions, "next" | "signal"> & {
+type SourceFetchOptions = Omit<NextFetchOptions, "next" | "signal" | "cache"> & {
   kind?: SourceFetchKind;
   signal?: AbortSignal;
   revalidateSeconds?: number;
@@ -104,10 +104,10 @@ function requestHeaders(input: HeadersInit | undefined): Headers {
 /**
  * Server-only read helper for official upstreams.
  *
- * Network policy lives here; schema validation stays inside each adapter.
- * Only GET/HEAD are allowed. Transient failures may be retried once according
- * to the source policy, while permanent 4xx responses are returned unchanged
- * to the adapter so they cannot be silently hidden.
+ * Network and cache policy live here; schema validation stays inside each
+ * adapter. Callers cannot override the Next.js cache mode directly: they may
+ * only select discovery/data semantics or an explicit positive revalidation
+ * interval. This avoids conflicting `cache` + `revalidate` configurations.
  */
 export async function fetchOfficialSource(
   sourceId: SourceId,
@@ -119,7 +119,8 @@ export async function fetchOfficialSource(
   const kind = options.kind ?? "data";
   const retries = Math.max(0, policy.maxRetries);
   const cacheTags = [...new Set([...policy.tags, ...(options.tags ?? [])])];
-  const revalidate = options.revalidateSeconds ?? revalidateFor(sourceId, kind);
+  const requestedRevalidate = options.revalidateSeconds ?? revalidateFor(sourceId, kind);
+  const revalidate = Math.max(1, Math.trunc(requestedRevalidate));
 
   const {
     kind: _kind,
