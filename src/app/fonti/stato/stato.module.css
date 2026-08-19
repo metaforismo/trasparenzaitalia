@@ -116,7 +116,7 @@
 .tableHeader,
 .row {
   display: grid;
-  grid-template-columns: minmax(210px, 1.25fr) minmax(160px, .75fr) minmax(190px, .9fr) minmax(200px, 1fr);
+  grid-template-columns: minmax(210px, 1.2fr) minmax(150px, .7fr) minmax(200px, .95fr) minmax(230px, 1.15fr);
   gap: 26px;
 }
 
@@ -132,8 +132,8 @@
 
 .row {
   align-items: center;
-  min-height: 106px;
-  padding: 18px 4px;
+  min-height: 116px;
+  padding: 20px 4px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -184,11 +184,13 @@
   line-height: 1.5;
 }
 
-.status {
+.status,
+.health .status,
+.policy .status {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  margin-bottom: 7px;
+  margin: 0 0 7px;
   font-size: 11px;
   font-weight: 650;
 }
@@ -197,15 +199,18 @@
   content: "";
   width: 7px;
   height: 7px;
+  flex: 0 0 auto;
   border-radius: 50%;
   background: #778b96;
 }
 
-.up {
+.up,
+.fresh {
   color: var(--green);
 }
 
-.up::before {
+.up::before,
+.fresh::before {
   background: var(--green);
 }
 
@@ -217,7 +222,16 @@
   background: #ef9696;
 }
 
-.notProbed {
+.stale {
+  color: var(--amber);
+}
+
+.stale::before {
+  background: var(--amber);
+}
+
+.notProbed,
+.unknown {
   color: #91a6b1;
 }
 
