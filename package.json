@@ -2,6 +2,7 @@
   "name": "trasparenzaitalia",
   "version": "0.2.0",
   "private": true,
+  "type": "module",
   "description": "Dashboard civica open source sui dati della spesa pubblica italiana.",
   "engines": {
     "node": ">=22.13.0"
