@@ -57,6 +57,13 @@ function text(value: unknown): string | null {
   return cleaned || null;
 }
 
+function freshnessFor(sourceId: SourceId, sourceTimestamp: string | null): Freshness {
+  return classifyFreshness(
+    SOURCE_POLICIES[sourceId].staleAfterSeconds,
+    sourceTimestamp,
+  );
+}
+
 function baseHealth(
   sourceId: SourceId,
 ): Omit<
@@ -130,7 +137,7 @@ async function probeIpa(): Promise<SourceHealth> {
     return {
       ...base,
       reachability: "down",
-      freshness: classifyFreshness("ipa", null),
+      freshness: freshnessFor("ipa", null),
       latencyMs,
       detail:
         countResult.reason instanceof Error
@@ -150,7 +157,7 @@ async function probeIpa(): Promise<SourceHealth> {
   return {
     ...base,
     reachability: "up",
-    freshness: classifyFreshness("ipa", sourceTimestamp),
+    freshness: freshnessFor("ipa", sourceTimestamp),
     latencyMs,
     detail: `Data API Enti raggiungibile${metadataDetail}`,
     recordCount: countResult.value,
@@ -169,7 +176,7 @@ async function probeOpenBdap(): Promise<SourceHealth> {
     return {
       ...base,
       reachability: "up",
-      freshness: classifyFreshness("openbdap", latest.metadataModified),
+      freshness: freshnessFor("openbdap", latest.metadataModified),
       latencyMs: Math.round(performance.now() - startedAt),
       detail: `Ultimo rilascio pagamenti trovato: ${latest.title}`,
       recordCount: null,
@@ -178,7 +185,7 @@ async function probeOpenBdap(): Promise<SourceHealth> {
     return {
       ...base,
       reachability: "down",
-      freshness: classifyFreshness("openbdap", null),
+      freshness: freshnessFor("openbdap", null),
       latencyMs: Math.round(performance.now() - startedAt),
       detail: error instanceof Error ? error.message : "Errore sconosciuto",
       recordCount: null,
@@ -190,7 +197,7 @@ function mappedSource(sourceId: SourceId): SourceHealth {
   return {
     ...baseHealth(sourceId),
     reachability: "not-probed",
-    freshness: classifyFreshness(sourceId, null),
+    freshness: freshnessFor(sourceId, null),
     latencyMs: null,
     detail: "Adapter dati non ancora attivo: non attribuiamo uno stato di rete artificiale.",
     recordCount: null,
