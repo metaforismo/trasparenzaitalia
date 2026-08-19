@@ -20,6 +20,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
+          cache: npm
 
       - name: Install dependencies
         run: npm install
@@ -30,5 +31,19 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
+      - name: Impeccable design detector
+        id: impeccable
+        continue-on-error: true
+        run: npm run design:check
+
       - name: Build
         run: npm run build
+
+      - name: Design quality summary
+        if: always()
+        run: |
+          if [ "${{ steps.impeccable.outcome }}" = "failure" ]; then
+            echo "::warning::Impeccable found design issues. The detector is diagnostic in this phase; fix or document them before turning it into a blocking gate."
+          else
+            echo "Impeccable detector passed."
+          fi
