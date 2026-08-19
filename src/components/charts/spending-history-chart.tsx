@@ -31,19 +31,13 @@ function compactEuro(value: number): string {
   return `${value.toLocaleString("it-IT", { maximumFractionDigits: 0 })} €`;
 }
 
-function HistoryTooltip({
-  active,
-  payload,
+function TooltipCard({
+  point,
   mode,
 }: {
-  active?: boolean;
-  payload?: Array<{ payload?: StateSpendingHistoryPoint }>;
+  point: StateSpendingHistoryPoint;
   mode: "cumulative" | "monthly";
 }) {
-  if (!active || !payload?.length) return null;
-  const point = payload[0]?.payload;
-  if (!point) return null;
-
   const value = mode === "cumulative" ? point.cumulativePaid : point.monthlyPaid;
 
   return (
@@ -92,7 +86,11 @@ export function SpendingHistoryChart({
                 tickFormatter={compactEuro}
               />
               <Tooltip
-                content={(props) => <HistoryTooltip {...props} mode="cumulative" />}
+                content={({ active, payload }) => {
+                  if (!active || !payload?.length) return null;
+                  const point = payload[0]?.payload as StateSpendingHistoryPoint | undefined;
+                  return point ? <TooltipCard point={point} mode="cumulative" /> : null;
+                }}
                 cursor={{ stroke: "rgba(171, 204, 221, 0.24)" }}
                 animationDuration={120}
               />
@@ -140,7 +138,11 @@ export function SpendingHistoryChart({
                 tickFormatter={compactEuro}
               />
               <Tooltip
-                content={(props) => <HistoryTooltip {...props} mode="monthly" />}
+                content={({ active, payload }) => {
+                  if (!active || !payload?.length) return null;
+                  const point = payload[0]?.payload as StateSpendingHistoryPoint | undefined;
+                  return point ? <TooltipCard point={point} mode="monthly" /> : null;
+                }}
                 cursor={{ fill: "rgba(255,255,255,0.025)" }}
                 animationDuration={120}
               />
