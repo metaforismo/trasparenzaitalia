@@ -1,4 +1,4 @@
-name: OpenCoesione parquet probe
+name: OpenCoesione transport probe
 
 on:
   pull_request:
@@ -20,54 +20,115 @@ jobs:
       - name: Install DuckDB
         run: python -m pip install --disable-pip-version-check --no-cache-dir duckdb==1.4.4
 
-      - name: Inspect official Parquet schemas
+      - name: Inspect API and Parquet transports independently
         shell: python
         run: |
           import json
+          import urllib.error
           import urllib.request
           import duckdb
 
-          sources = {
+          parquet_sources = {
               "progetti": "https://opencoesione.gov.it/it/opendata/progetti.parquet",
               "pagamenti": "https://opencoesione.gov.it/it/opendata/pagamenti.parquet",
               "localizzazioni": "https://opencoesione.gov.it/it/opendata/localizzazioni.parquet",
           }
+          api_sources = {
+              "progetti": "https://opencoesione.gov.it/api/progetti.json?limit=1",
+              "soggetti": "https://opencoesione.gov.it/api/soggetti.json?limit=1",
+              "aggregati": "https://opencoesione.gov.it/api/aggregati.json",
+              "temi": "https://opencoesione.gov.it/api/temi.json",
+          }
 
-          for name, url in sources.items():
-              request = urllib.request.Request(
-                  url,
-                  method="HEAD",
-                  headers={"User-Agent": "TrasparenzaItalia-probe/1.0"},
-              )
-              with urllib.request.urlopen(request, timeout=60) as response:
-                  print("HTTP", name, json.dumps({
-                      "status": response.status,
-                      "contentLength": response.headers.get("Content-Length"),
-                      "lastModified": response.headers.get("Last-Modified"),
-                      "etag": response.headers.get("ETag"),
-                      "acceptRanges": response.headers.get("Accept-Ranges"),
-                  }, ensure_ascii=False))
+          browser_headers = {
+              "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/151 Safari/537.36",
+              "Accept": "application/json,text/plain,*/*;q=0.8",
+          }
 
+          def inspect_get(url, extra_headers=None, read_bytes=2048):
+              headers = dict(browser_headers)
+              headers.update(extra_headers or {})
+              request = urllib.request.Request(url, headers=headers)
+              try:
+                  with urllib.request.urlopen(request, timeout=60) as response:
+                      body = response.read(read_bytes)
+                      return {
+                          "url": url,
+                          "status": response.status,
+                          "contentType": response.headers.get("Content-Type"),
+                          "contentLength": response.headers.get("Content-Length"),
+                          "contentRange": response.headers.get("Content-Range"),
+                          "lastModified": response.headers.get("Last-Modified"),
+                          "etag": response.headers.get("ETag"),
+                          "acceptRanges": response.headers.get("Accept-Ranges"),
+                          "body": body.decode("utf-8", errors="replace") if read_bytes else "",
+                      }
+              except urllib.error.HTTPError as error:
+                  body = error.read(read_bytes).decode("utf-8", errors="replace")
+                  return {
+                      "url": url,
+                      "status": error.code,
+                      "contentType": error.headers.get("Content-Type"),
+                      "body": body,
+                  }
+              except Exception as error:
+                  return {"url": url, "error": repr(error)}
+
+          api_results = {
+              name: inspect_get(url)
+              for name, url in api_sources.items()
+          }
+          print("API", json.dumps(api_results, ensure_ascii=False, indent=2)[:24000])
+
+          parquet_http = {
+              name: inspect_get(url, {"Range": "bytes=0-0"}, read_bytes=16)
+              for name, url in parquet_sources.items()
+          }
+          print("PARQUET_HTTP", json.dumps(parquet_http, ensure_ascii=False, indent=2))
+
+          duckdb_results = {}
           con = duckdb.connect()
-          con.execute("INSTALL httpfs")
-          con.execute("LOAD httpfs")
-          con.execute("SET enable_progress_bar=false")
+          try:
+              con.execute("INSTALL httpfs")
+              con.execute("LOAD httpfs")
+              con.execute("SET enable_progress_bar=false")
+              con.execute("SET http_timeout=60000")
+              con.execute("SET http_retries=1")
+              for name, url in parquet_sources.items():
+                  try:
+                      schema = con.execute(
+                          "DESCRIBE SELECT * FROM read_parquet(?)",
+                          [url],
+                      ).fetchall()
+                      sample = con.execute(
+                          "SELECT * FROM read_parquet(?) LIMIT 1",
+                          [url],
+                      ).fetchall()
+                      duckdb_results[name] = {
+                          "ok": True,
+                          "schema": schema,
+                          "sample": sample,
+                      }
+                  except Exception as error:
+                      duckdb_results[name] = {"ok": False, "error": repr(error)}
+          finally:
+              con.close()
 
-          for name, url in sources.items():
-              schema = con.execute(
-                  "DESCRIBE SELECT * FROM read_parquet(?)",
-                  [url],
-              ).fetchall()
-              count = con.execute(
-                  "SELECT count(*) FROM read_parquet(?)",
-                  [url],
-              ).fetchone()[0]
-              sample = con.execute(
-                  "SELECT * FROM read_parquet(?) LIMIT 2",
-                  [url],
-              ).fetchall()
-              columns = [row[0] for row in schema]
-              print("SCHEMA", name, json.dumps(schema, ensure_ascii=False, default=str))
-              print("COUNT", name, count)
-              print("SAMPLE_COLUMNS", name, json.dumps(columns, ensure_ascii=False))
-              print("SAMPLE", name, json.dumps(sample, ensure_ascii=False, default=str)[:12000])
+          print("DUCKDB", json.dumps(duckdb_results, ensure_ascii=False, indent=2, default=str)[:32000])
+
+          api_reachable = any(
+              result.get("status") == 200
+              for result in api_results.values()
+          )
+          parquet_reachable = any(
+              result.get("status") in (200, 206)
+              for result in parquet_http.values()
+          ) or any(
+              result.get("ok")
+              for result in duckdb_results.values()
+          )
+
+          assert api_reachable or parquet_reachable, (
+              "Neither the official OpenCoesione API nor official Parquet transport "
+              "is reachable from the GitHub runner"
+          )
