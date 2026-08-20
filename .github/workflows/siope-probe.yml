@@ -18,16 +18,30 @@ jobs:
           import csv
           import io
           import json
+          import time
           import urllib.parse
           import urllib.request
 
           action = "https://bdap-opendata.rgs.mef.gov.it/SpodCkanApi/api/3/action"
           dump = "https://bdap-opendata.rgs.mef.gov.it/SpodCkanApi/api/3/datastore/dump"
           code = "RND_SPE_SIO_REG18_001"
+          headers = {"Accept": "application/json", "User-Agent": "TrasparenzaItalia-probe/1.0"}
+
+          def read_url(url, timeout):
+              last_error = None
+              for attempt in range(3):
+                  try:
+                      request = urllib.request.Request(url, headers=headers)
+                      with urllib.request.urlopen(request, timeout=timeout) as response:
+                          return response.read()
+                  except Exception as error:
+                      last_error = error
+                      if attempt < 2:
+                          time.sleep(2 * (attempt + 1))
+              raise last_error
 
           params = urllib.parse.urlencode({"q": code, "rows": "50"})
-          with urllib.request.urlopen(f"{action}/package_search?{params}", timeout=30) as response:
-              payload = json.load(response)
+          payload = json.loads(read_url(f"{action}/package_search?{params}", 90))
 
           candidates = []
           for package in payload.get("result", {}).get("results", []):
@@ -41,11 +55,9 @@ jobs:
           package_id = package["id"]
           print("PACKAGE", package_id, package.get("title"), package.get("metadata_modified"))
 
-          request = urllib.request.Request(
-              f"{dump}/{package_id}.csv",
-              headers={"Accept": "text/csv", "User-Agent": "TrasparenzaItalia-probe/1.0"},
-          )
-          with urllib.request.urlopen(request, timeout=90) as response:
+          csv_headers = {"Accept": "text/csv", "User-Agent": "TrasparenzaItalia-probe/1.0"}
+          request = urllib.request.Request(f"{dump}/{package_id}.csv", headers=csv_headers)
+          with urllib.request.urlopen(request, timeout=120) as response:
               raw = response.read()
 
           text = raw.decode("utf-8-sig", errors="replace")
