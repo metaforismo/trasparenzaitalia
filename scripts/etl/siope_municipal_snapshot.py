@@ -88,7 +88,7 @@ def open_with_retry(url: str, *, timeout: int, range_byte: bool = False):
                 request(url, range_byte=range_byte),
                 timeout=timeout,
             )
-        except Exception as error:  # network boundary: preserve last upstream error
+        except Exception as error:
             last_error = error
             if attempt + 1 < MAX_ATTEMPTS:
                 time.sleep(2 * (attempt + 1))
@@ -97,12 +97,7 @@ def open_with_retry(url: str, *, timeout: int, range_byte: bool = False):
 
 
 def remote_metadata(url: str) -> dict[str, str | None]:
-    """Read source validators without downloading the body.
-
-    SIOPE supports byte ranges; when another upstream ignores Range, closing the
-    response immediately still avoids consuming the full body.
-    """
-
+    """Read source validators without downloading the body."""
     with open_with_retry(url, timeout=90, range_byte=True) as response:
         response.read(1)
         return {
@@ -191,7 +186,6 @@ def parse_ipa_regions(path: Path) -> dict[str, str]:
         if cf and region:
             candidates[cf].add(region)
 
-    # A CF with conflicting regions is deliberately excluded rather than guessed.
     return {
         cf: next(iter(regions))
         for cf, regions in candidates.items()
@@ -217,7 +211,6 @@ def load_municipalities(
     ipa_regions: dict[str, str],
 ) -> tuple[dict[str, dict], dict[str, dict], int]:
     """Return mappings by SIOPE code and canonical municipality key (CF)."""
-
     active: dict[str, dict] = {}
     active_municipalities = 0
 
@@ -243,9 +236,6 @@ def load_municipalities(
             "validFrom": valid_from,
         }
 
-    # Multiple SIOPE codes may point to the same current municipality after
-    # organisational changes. Keep one canonical description and aggregate all
-    # movement codes through the shared CF key.
     canonical: dict[str, dict] = {}
     for municipality in active.values():
         key = municipality["key"]
@@ -286,7 +276,6 @@ def build_snapshot(
 
     municipality_cents: dict[str, int] = defaultdict(int)
     region_cents: dict[str, int] = defaultdict(int)
-    region_monthly: dict[str, list[int]] = defaultdict(lambda: [0] * 12)
     title_cents: dict[str, int] = defaultdict(int)
     national_monthly = [0] * 12
     observed_keys: set[str] = set()
@@ -296,7 +285,7 @@ def build_snapshot(
     rows_included = 0
     malformed = 0
 
-    for row in zip_rows(movements_zip, "SIOPE_USCITE"):
+    for row in zip_rows(movements_zip, f"USCITE_{year}"):
         rows_total += 1
         if len(row) != 5:
             malformed += 1
@@ -324,7 +313,6 @@ def build_snapshot(
         digit = title_digit(management_code)
         municipality_cents[key] += cents
         region_cents[region] += cents
-        region_monthly[region][month - 1] += cents
         title_cents[digit] += cents
         national_monthly[month - 1] += cents
         observed_keys.add(key)
@@ -513,7 +501,6 @@ def main() -> int:
         registry_response = download(f"{SIOPE_BASE}/{SIOPE_REGISTRY_FILE}", registry)
         ipa_response = download(IPA_ADMINISTRATIONS_URL, ipa, timeout=180)
 
-        # Prefer validators obtained during the real download when available.
         for key, response_meta in (
             ("movements", movement_response),
             ("registry", registry_response),
