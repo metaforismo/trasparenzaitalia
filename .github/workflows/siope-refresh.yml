@@ -8,6 +8,10 @@ on:
     paths:
       - scripts/etl/siope_municipal_snapshot.py
       - .github/workflows/siope-refresh.yml
+  pull_request:
+    paths:
+      - scripts/etl/siope_municipal_snapshot.py
+      - .github/workflows/siope-refresh.yml
   schedule:
     - cron: "29 * * * *"
   workflow_dispatch:
@@ -33,7 +37,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
           fetch-depth: 0
 
       - name: Setup Python
@@ -84,6 +88,7 @@ jobs:
           }, ensure_ascii=False, indent=2))
 
       - name: Commit source update
+        if: github.event_name != 'pull_request'
         shell: bash
         run: |
           set -euo pipefail
