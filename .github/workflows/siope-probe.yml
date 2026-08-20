@@ -1,8 +1,7 @@
 name: SIOPE dataset probe
 
 on:
-  push:
-    branches: [feat/siope-territorial-dashboard]
+  pull_request:
   workflow_dispatch:
 
 permissions:
