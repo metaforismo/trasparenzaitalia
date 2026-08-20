@@ -1,0 +1,73 @@
+name: OpenCoesione parquet probe
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install DuckDB
+        run: python -m pip install --disable-pip-version-check --no-cache-dir duckdb==1.4.4
+
+      - name: Inspect official Parquet schemas
+        shell: python
+        run: |
+          import json
+          import urllib.request
+          import duckdb
+
+          sources = {
+              "progetti": "https://opencoesione.gov.it/it/opendata/progetti.parquet",
+              "pagamenti": "https://opencoesione.gov.it/it/opendata/pagamenti.parquet",
+              "localizzazioni": "https://opencoesione.gov.it/it/opendata/localizzazioni.parquet",
+          }
+
+          for name, url in sources.items():
+              request = urllib.request.Request(
+                  url,
+                  method="HEAD",
+                  headers={"User-Agent": "TrasparenzaItalia-probe/1.0"},
+              )
+              with urllib.request.urlopen(request, timeout=60) as response:
+                  print("HTTP", name, json.dumps({
+                      "status": response.status,
+                      "contentLength": response.headers.get("Content-Length"),
+                      "lastModified": response.headers.get("Last-Modified"),
+                      "etag": response.headers.get("ETag"),
+                      "acceptRanges": response.headers.get("Accept-Ranges"),
+                  }, ensure_ascii=False))
+
+          con = duckdb.connect()
+          con.execute("INSTALL httpfs")
+          con.execute("LOAD httpfs")
+          con.execute("SET enable_progress_bar=false")
+
+          for name, url in sources.items():
+              schema = con.execute(
+                  "DESCRIBE SELECT * FROM read_parquet(?)",
+                  [url],
+              ).fetchall()
+              count = con.execute(
+                  "SELECT count(*) FROM read_parquet(?)",
+                  [url],
+              ).fetchone()[0]
+              sample = con.execute(
+                  "SELECT * FROM read_parquet(?) LIMIT 2",
+                  [url],
+              ).fetchall()
+              columns = [row[0] for row in schema]
+              print("SCHEMA", name, json.dumps(schema, ensure_ascii=False, default=str))
+              print("COUNT", name, count)
+              print("SAMPLE_COLUMNS", name, json.dumps(columns, ensure_ascii=False))
+              print("SAMPLE", name, json.dumps(sample, ensure_ascii=False, default=str)[:12000])
