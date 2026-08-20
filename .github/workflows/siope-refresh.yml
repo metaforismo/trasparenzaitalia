@@ -94,7 +94,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if git diff --quiet -- src/data/generated/siope-municipal.json; then
+          if [[ -z "$(git status --porcelain -- src/data/generated/siope-municipal.json)" ]]; then
             echo "No SIOPE snapshot change to commit."
             exit 0
           fi
