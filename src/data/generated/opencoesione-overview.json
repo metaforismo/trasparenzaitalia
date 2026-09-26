@@ -1,65 +1,65 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-20T08:51:13+00:00",
-  "referenceDate": "2026-04-30",
+  "generatedAt": "2026-09-26T16:20:33+00:00",
+  "referenceDate": "2026-06-30",
   "scope": "national-overview",
   "totals": {
-    "publicCostCents": 35736790385300,
-    "cohesionPublicCostCents": 29048128676300,
-    "paymentsCents": 19890705245100,
-    "cohesionPaymentsCents": 17740534642200,
-    "projects": 1838162
+    "publicCostCents": 36177583532900,
+    "cohesionPublicCostCents": 29232011179600,
+    "paymentsCents": 20132380482000,
+    "cohesionPaymentsCents": 17760089617400,
+    "projects": 1848253
   },
   "statuses": [
     {
       "slug": "in_corso",
       "label": "In corso",
       "sourceUrl": null,
-      "publicCostCents": 20023288418400,
-      "cohesionPublicCostCents": 14775766603300,
-      "paymentsCents": 6900874779800,
-      "cohesionPaymentsCents": 5941250175100,
-      "projects": 267380
+      "publicCostCents": 20381738968400,
+      "cohesionPublicCostCents": 14863731308900,
+      "paymentsCents": 7023118635400,
+      "cohesionPaymentsCents": 5970535859700,
+      "projects": 269303
     },
     {
       "slug": "concluso",
       "label": "Concluso",
       "sourceUrl": null,
-      "publicCostCents": 10327749613600,
-      "cohesionPublicCostCents": 9458942634700,
-      "paymentsCents": 10364175280400,
-      "cohesionPaymentsCents": 9308654717200,
-      "projects": 1246755
+      "publicCostCents": 10833772732300,
+      "cohesionPublicCostCents": 9958917200200,
+      "paymentsCents": 10866920164400,
+      "cohesionPaymentsCents": 9643498975100,
+      "projects": 1253106
     },
     {
       "slug": "liquidato",
       "label": "Liquidato",
       "sourceUrl": null,
-      "publicCostCents": 2637479046400,
-      "cohesionPublicCostCents": 2561384443800,
-      "paymentsCents": 2623109305200,
-      "cohesionPaymentsCents": 2489395371700,
-      "projects": 262394
+      "publicCostCents": 2253663750500,
+      "cohesionPublicCostCents": 2179361025400,
+      "paymentsCents": 2241006700200,
+      "cohesionPaymentsCents": 2145427346200,
+      "projects": 263257
     },
     {
       "slug": "non_determinabile",
       "label": "Non determinabile",
       "sourceUrl": null,
-      "publicCostCents": 5668136300,
-      "cohesionPublicCostCents": 3352995800,
-      "paymentsCents": 2545879700,
-      "cohesionPaymentsCents": 1234378100,
-      "projects": 166
+      "publicCostCents": 5728136300,
+      "cohesionPublicCostCents": 1799111400,
+      "paymentsCents": 1334982000,
+      "cohesionPaymentsCents": 23480400,
+      "projects": 174
     },
     {
       "slug": "non_avviato",
       "label": "Non avviato",
       "sourceUrl": null,
-      "publicCostCents": 2742605170600,
-      "cohesionPublicCostCents": 2248681998600,
+      "publicCostCents": 2702679945400,
+      "cohesionPublicCostCents": 2228202533600,
       "paymentsCents": 0,
-      "cohesionPaymentsCents": 0,
-      "projects": 61467
+      "cohesionPaymentsCents": 603956100,
+      "projects": 62413
     }
   ],
   "themes": [
@@ -67,111 +67,111 @@
       "slug": "ricerca-e-innovazione",
       "label": "Ricerca e innovazione",
       "sourceUrl": "https://opencoesione.gov.it/it/api/aggregati/temi/ricerca-e-innovazione",
-      "publicCostCents": 2494599772000,
-      "cohesionPublicCostCents": 2108761826200,
-      "paymentsCents": 1610064008800,
-      "cohesionPaymentsCents": 1421029393600,
-      "projects": 46402
+      "publicCostCents": 2496263796100,
+      "cohesionPublicCostCents": 2109469581900,
+      "paymentsCents": 1622694287900,
+      "cohesionPaymentsCents": 1431760278300,
+      "projects": 46437
     },
     {
       "slug": "reti-servizi-digitali",
       "label": "Reti e servizi digitali",
       "sourceUrl": "https://opencoesione.gov.it/it/api/aggregati/temi/reti-servizi-digitali",
-      "publicCostCents": 1273710421100,
-      "cohesionPublicCostCents": 1231712957100,
-      "paymentsCents": 861434650700,
-      "cohesionPaymentsCents": 824547963800,
-      "projects": 72061
+      "publicCostCents": 1282784822400,
+      "cohesionPublicCostCents": 1240898376700,
+      "paymentsCents": 867115949200,
+      "cohesionPaymentsCents": 830267446000,
+      "projects": 72497
     },
     {
       "slug": "competitivita-imprese",
       "label": "Competitività delle imprese",
       "sourceUrl": "https://opencoesione.gov.it/it/api/aggregati/temi/competitivita-imprese",
-      "publicCostCents": 4369201448400,
-      "cohesionPublicCostCents": 3650197782500,
-      "paymentsCents": 2650244167800,
-      "cohesionPaymentsCents": 2483086768000,
-      "projects": 248260
+      "publicCostCents": 4391261514400,
+      "cohesionPublicCostCents": 3668939490500,
+      "paymentsCents": 2656965959500,
+      "cohesionPaymentsCents": 2494148039500,
+      "projects": 252874
     },
     {
       "slug": "energia",
       "label": "Energia",
       "sourceUrl": "https://opencoesione.gov.it/it/api/aggregati/temi/energia",
-      "publicCostCents": 775068440300,
-      "cohesionPublicCostCents": 730936449600,
-      "paymentsCents": 567510986600,
-      "cohesionPaymentsCents": 533103586300,
-      "projects": 22511
+      "publicCostCents": 774977692400,
+      "cohesionPublicCostCents": 730585376900,
+      "paymentsCents": 586740688600,
+      "cohesionPaymentsCents": 552084382200,
+      "projects": 22773
     },
     {
       "slug": "ambiente",
       "label": "Ambiente",
       "sourceUrl": "https://opencoesione.gov.it/it/api/aggregati/temi/ambiente",
-      "publicCostCents": 4760475789000,
-      "cohesionPublicCostCents": 3892313118600,
-      "paymentsCents": 2064214297600,
-      "cohesionPaymentsCents": 1802925552500,
-      "projects": 27810
+      "publicCostCents": 4775091507600,
+      "cohesionPublicCostCents": 3909254734500,
+      "paymentsCents": 2086892232400,
+      "cohesionPaymentsCents": 1824366115700,
+      "projects": 28053
     },
     {
       "slug": "cultura-e-turismo",
       "label": "Cultura e turismo",
       "sourceUrl": "https://opencoesione.gov.it/it/api/aggregati/temi/cultura-e-turismo",
-      "publicCostCents": 1586788766600,
-      "cohesionPublicCostCents": 1388788852100,
-      "paymentsCents": 1047880982100,
-      "cohesionPaymentsCents": 910002311500,
-      "projects": 25529
+      "publicCostCents": 1605683263600,
+      "cohesionPublicCostCents": 1406227618000,
+      "paymentsCents": 1056709329500,
+      "cohesionPaymentsCents": 919280817600,
+      "projects": 26241
     },
     {
       "slug": "trasporti",
       "label": "Trasporti e mobilità",
       "sourceUrl": "https://opencoesione.gov.it/it/api/aggregati/temi/trasporti",
-      "publicCostCents": 10093395482200,
-      "cohesionPublicCostCents": 6301245083800,
-      "paymentsCents": 4099855365000,
-      "cohesionPaymentsCents": 3051334594200,
-      "projects": 15990
+      "publicCostCents": 10459923243300,
+      "cohesionPublicCostCents": 6411488842300,
+      "paymentsCents": 4245321134300,
+      "cohesionPaymentsCents": 3099986163900,
+      "projects": 16138
     },
     {
       "slug": "occupazione",
       "label": "Occupazione e lavoro",
       "sourceUrl": "https://opencoesione.gov.it/it/api/aggregati/temi/occupazione",
-      "publicCostCents": 2956600129600,
-      "cohesionPublicCostCents": 2937610233500,
-      "paymentsCents": 2401024069800,
-      "cohesionPaymentsCents": 2359534388500,
-      "projects": 896618
+      "publicCostCents": 2958203837800,
+      "cohesionPublicCostCents": 2940330016900,
+      "paymentsCents": 2400816155000,
+      "cohesionPaymentsCents": 2360257182900,
+      "projects": 898545
     },
     {
       "slug": "inclusione-sociale",
       "label": "Inclusione sociale e salute",
       "sourceUrl": "https://opencoesione.gov.it/it/api/aggregati/temi/inclusione-sociale",
-      "publicCostCents": 3320101875200,
-      "cohesionPublicCostCents": 2887740863200,
-      "paymentsCents": 1842747847200,
-      "cohesionPaymentsCents": 1703642135800,
-      "projects": 94776
+      "publicCostCents": 3325577407900,
+      "cohesionPublicCostCents": 2898850861600,
+      "paymentsCents": 1848758025300,
+      "cohesionPaymentsCents": 1712278253700,
+      "projects": 95186
     },
     {
       "slug": "istruzione",
       "label": "Istruzione e formazione",
       "sourceUrl": "https://opencoesione.gov.it/it/api/aggregati/temi/istruzione",
-      "publicCostCents": 2574172317900,
-      "cohesionPublicCostCents": 2435407344100,
-      "paymentsCents": 1829025757400,
-      "cohesionPaymentsCents": 1760703540500,
-      "projects": 369618
+      "publicCostCents": 2594362076400,
+      "cohesionPublicCostCents": 2454090461600,
+      "paymentsCents": 1838204840400,
+      "cohesionPaymentsCents": 1769398446500,
+      "projects": 371562
     },
     {
       "slug": "capacita-amministrativa",
       "label": "Capacità amministrativa",
       "sourceUrl": "https://opencoesione.gov.it/it/api/aggregati/temi/capacita-amministrativa",
-      "publicCostCents": 1532675943100,
-      "cohesionPublicCostCents": 1483414165600,
-      "paymentsCents": 916703112000,
-      "cohesionPaymentsCents": 890624407400,
-      "projects": 18587
+      "publicCostCents": 1513454370900,
+      "cohesionPublicCostCents": 1461875818700,
+      "paymentsCents": 922161879900,
+      "cohesionPaymentsCents": 766262491100,
+      "projects": 17947
     }
   ],
   "natures": [
@@ -179,61 +179,61 @@
       "slug": "acquisto-beni-e-servizi",
       "label": "Acquisto beni e servizi",
       "sourceUrl": "https://opencoesione.gov.it/it/api/aggregati/nature/acquisto-beni-e-servizi",
-      "publicCostCents": 9217685946100,
-      "cohesionPublicCostCents": 8886701351400,
-      "paymentsCents": 6601129477800,
-      "cohesionPaymentsCents": 6378982150800,
-      "projects": 778163
+      "publicCostCents": 9220163900000,
+      "cohesionPublicCostCents": 8884986674100,
+      "paymentsCents": 6639528526600,
+      "cohesionPaymentsCents": 6285475515500,
+      "projects": 780479
     },
     {
       "slug": "infrastrutture",
       "label": "Infrastrutture",
       "sourceUrl": "https://opencoesione.gov.it/it/api/aggregati/nature/infrastrutture",
-      "publicCostCents": 18281250355900,
-      "cohesionPublicCostCents": 12977972418700,
-      "paymentsCents": 7887186516600,
-      "cohesionPaymentsCents": 6300518343200,
-      "projects": 102193
+      "publicCostCents": 18656714318300,
+      "cohesionPublicCostCents": 13107418056600,
+      "paymentsCents": 8044421899800,
+      "cohesionPaymentsCents": 6366257943800,
+      "projects": 103190
     },
     {
       "slug": "incentivi-alle-imprese",
       "label": "Incentivi alle imprese",
       "sourceUrl": "https://opencoesione.gov.it/it/api/aggregati/nature/incentivi-alle-imprese",
-      "publicCostCents": 4839742877900,
-      "cohesionPublicCostCents": 4119801210200,
-      "paymentsCents": 3056993669600,
-      "cohesionPaymentsCents": 2751411431100,
-      "projects": 395263
+      "publicCostCents": 4871361444700,
+      "cohesionPublicCostCents": 4140534534600,
+      "paymentsCents": 3083412685600,
+      "cohesionPaymentsCents": 2779109854700,
+      "projects": 399563
     },
     {
       "slug": "contributi-a-persone",
       "label": "Contributi a persone",
       "sourceUrl": "https://opencoesione.gov.it/it/api/aggregati/nature/contributi-a-persone",
-      "publicCostCents": 1515206372300,
-      "cohesionPublicCostCents": 1453530784700,
-      "paymentsCents": 1165502371100,
-      "cohesionPaymentsCents": 1131004465000,
-      "projects": 562150
+      "publicCostCents": 1521043561000,
+      "cohesionPublicCostCents": 1463553526900,
+      "paymentsCents": 1175809348200,
+      "cohesionPaymentsCents": 1141313239600,
+      "projects": 564612
     },
     {
       "slug": "conferimenti-capitale",
       "label": "Conferimenti capitale",
       "sourceUrl": "https://opencoesione.gov.it/it/api/aggregati/nature/conferimenti-capitale",
-      "publicCostCents": 1882217741800,
-      "cohesionPublicCostCents": 1609435820100,
-      "paymentsCents": 1179587363600,
-      "cohesionPaymentsCents": 1178313321800,
-      "projects": 365
+      "publicCostCents": 1907583906000,
+      "cohesionPublicCostCents": 1634801984400,
+      "paymentsCents": 1188881516000,
+      "cohesionPaymentsCents": 1187607474200,
+      "projects": 378
     },
     {
       "slug": "non-disponibile",
       "label": "Non disponibile",
       "sourceUrl": "https://opencoesione.gov.it/it/api/aggregati/nature/non-disponibile",
-      "publicCostCents": 687091200,
-      "cohesionPublicCostCents": 687091200,
-      "paymentsCents": 305846400,
-      "cohesionPaymentsCents": 304930300,
-      "projects": 28
+      "publicCostCents": 716403000,
+      "cohesionPublicCostCents": 716403000,
+      "paymentsCents": 326505700,
+      "cohesionPaymentsCents": 325589600,
+      "projects": 31
     }
   ],
   "annualSeries": [
@@ -290,137 +290,137 @@
     {
       "year": 2000,
       "commitmentsCents": 45037773814,
-      "paymentsCents": 3846453728
+      "paymentsCents": 3846456728
     },
     {
       "year": 2001,
       "commitmentsCents": 75209489301,
-      "paymentsCents": 12036325671
+      "paymentsCents": 12035998671
     },
     {
       "year": 2002,
-      "commitmentsCents": 114792150246,
-      "paymentsCents": 33544992757
+      "commitmentsCents": 113830290626,
+      "paymentsCents": 32040538408
     },
     {
       "year": 2003,
-      "commitmentsCents": 230307015829,
-      "paymentsCents": 76337752727
+      "commitmentsCents": 229345156209,
+      "paymentsCents": 74834484578
     },
     {
       "year": 2004,
-      "commitmentsCents": 513386291572,
-      "paymentsCents": 132043301101
+      "commitmentsCents": 513296497622,
+      "paymentsCents": 130533952549
     },
     {
       "year": 2005,
-      "commitmentsCents": 1049767821253,
-      "paymentsCents": 238490966041
+      "commitmentsCents": 1049808385563,
+      "paymentsCents": 236944900759
     },
     {
       "year": 2006,
-      "commitmentsCents": 1559649016452,
-      "paymentsCents": 394813844480
+      "commitmentsCents": 1556565566868,
+      "paymentsCents": 393053749417
     },
     {
       "year": 2007,
-      "commitmentsCents": 2295107252434,
-      "paymentsCents": 629247014079
+      "commitmentsCents": 2290870259535,
+      "paymentsCents": 626204060297
     },
     {
       "year": 2008,
-      "commitmentsCents": 2944563213908,
-      "paymentsCents": 1011444063234
+      "commitmentsCents": 2937515198816,
+      "paymentsCents": 1005924734835
     },
     {
       "year": 2009,
-      "commitmentsCents": 3890576693763,
-      "paymentsCents": 1732284705741
+      "commitmentsCents": 3882271021961,
+      "paymentsCents": 1726000181439
     },
     {
       "year": 2010,
-      "commitmentsCents": 4886779662219,
-      "paymentsCents": 2425215099262
+      "commitmentsCents": 4878608567195,
+      "paymentsCents": 2418218442940
     },
     {
       "year": 2011,
-      "commitmentsCents": 5788712481947,
-      "paymentsCents": 3385655153092
+      "commitmentsCents": 5780189438655,
+      "paymentsCents": 3378840629658
     },
     {
       "year": 2012,
-      "commitmentsCents": 6801862869605,
-      "paymentsCents": 4253742847268
+      "commitmentsCents": 6793721404249,
+      "paymentsCents": 4247179696533
     },
     {
       "year": 2013,
-      "commitmentsCents": 7783780442682,
-      "paymentsCents": 5219696060103
+      "commitmentsCents": 7775706579928,
+      "paymentsCents": 5213110483851
     },
     {
       "year": 2014,
-      "commitmentsCents": 9035844201098,
-      "paymentsCents": 6140555028468
+      "commitmentsCents": 9030460997424,
+      "paymentsCents": 6135185974863
     },
     {
       "year": 2015,
-      "commitmentsCents": 10318006070861,
-      "paymentsCents": 7450706636083
+      "commitmentsCents": 10312147176055,
+      "paymentsCents": 7445153592593
     },
     {
       "year": 2016,
-      "commitmentsCents": 11095580480432,
-      "paymentsCents": 8135757787836
+      "commitmentsCents": 11091661931775,
+      "paymentsCents": 8130320843356
     },
     {
       "year": 2017,
-      "commitmentsCents": 12302484531677,
-      "paymentsCents": 8804945515643
+      "commitmentsCents": 12300430502697,
+      "paymentsCents": 8804232464961
     },
     {
       "year": 2018,
-      "commitmentsCents": 13768068718985,
-      "paymentsCents": 9694161174756
+      "commitmentsCents": 13766665760028,
+      "paymentsCents": 9694246811463
     },
     {
       "year": 2019,
-      "commitmentsCents": 14984751616054,
-      "paymentsCents": 10601083878453
+      "commitmentsCents": 14979697710702,
+      "paymentsCents": 10600435509135
     },
     {
       "year": 2020,
-      "commitmentsCents": 16798385854573,
-      "paymentsCents": 11953267676045
+      "commitmentsCents": 16859498013470,
+      "paymentsCents": 11955431516439
     },
     {
       "year": 2021,
-      "commitmentsCents": 18413709436456,
-      "paymentsCents": 13465994662823
+      "commitmentsCents": 18485133826389,
+      "paymentsCents": 13490853226474
     },
     {
       "year": 2022,
-      "commitmentsCents": 20618298827656,
-      "paymentsCents": 14920022596395
+      "commitmentsCents": 20804375007355,
+      "paymentsCents": 14959199544671
     },
     {
       "year": 2023,
-      "commitmentsCents": 22932583888913,
-      "paymentsCents": 16730068557648
+      "commitmentsCents": 23129871789087,
+      "paymentsCents": 16797370450699
     },
     {
       "year": 2024,
-      "commitmentsCents": 23615554736296,
-      "paymentsCents": 17683858832834
+      "commitmentsCents": 23858587227678,
+      "paymentsCents": 17785092548786
     },
     {
       "year": 2025,
-      "commitmentsCents": 24036918460820,
-      "paymentsCents": 18508352347958
+      "commitmentsCents": 24299500339251,
+      "paymentsCents": 18646020728614
     },
     {
       "year": 2026,
-      "commitmentsCents": 24062218503208,
-      "paymentsCents": 18578031745189
+      "commitmentsCents": 24339178951894,
+      "paymentsCents": 18804848779301
     }
   ],
   "reconciliation": {
@@ -428,20 +428,20 @@
       "publicCostDeltaCents": 0,
       "cohesionPublicCostDeltaCents": -100,
       "paymentsDeltaCents": 0,
-      "cohesionPaymentsDeltaCents": -100,
+      "cohesionPaymentsDeltaCents": 100,
       "projectsDelta": 0
     },
     "themes": {
-      "publicCostDeltaCents": 100,
-      "cohesionPublicCostDeltaCents": 0,
-      "paymentsDeltaCents": -100,
-      "cohesionPaymentsDeltaCents": -100,
-      "projectsDelta": 0
-    },
-    "natures": {
       "publicCostDeltaCents": -100,
       "cohesionPublicCostDeltaCents": 0,
       "paymentsDeltaCents": 0,
+      "cohesionPaymentsDeltaCents": 0,
+      "projectsDelta": 0
+    },
+    "natures": {
+      "publicCostDeltaCents": 100,
+      "cohesionPublicCostDeltaCents": 0,
+      "paymentsDeltaCents": -100,
       "cohesionPaymentsDeltaCents": 0,
       "projectsDelta": 0
     }
@@ -453,7 +453,7 @@
     "license": "CC BY 4.0",
     "declaredCadence": "Bimestrale prevista",
     "platformCheckCadence": "Ogni 6 ore",
-    "observedAt": "2026-08-20T08:51:13+00:00"
+    "observedAt": "2026-09-26T16:20:33+00:00"
   },
   "methodology": {
     "paymentCostRatioMeaning": "Rapporto finanziario tra pagamenti registrati e costo pubblico; non misura l'avanzamento fisico dei progetti.",
