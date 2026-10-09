@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-08T22:16:40+00:00",
+  "generatedAt": "2026-10-09T09:23:50+00:00",
   "scope": "municipalities",
   "year": 2026,
   "latestMonth": 10,
@@ -1067,8 +1067,8 @@
     "ipaUrl": "https://indicepa.gov.it/ipa-dati/dataset/502ff370-1b2c-4310-94c7-f39ceb7500e3/resource/3ed63523-ff9c-41f6-a6fe-980f3d9e501f/download/amministrazioni.txt",
     "siopeMovementsLastModified": "Thu, 08 Oct 2026 18:50:13 GMT",
     "siopeRegistryLastModified": "Thu, 08 Oct 2026 18:50:13 GMT",
-    "ipaLastModified": "Thu, 08 Oct 2026 03:16:33 GMT",
-    "observedAt": "2026-10-08T22:16:40+00:00"
+    "ipaLastModified": "Fri, 09 Oct 2026 03:18:51 GMT",
+    "observedAt": "2026-10-09T09:23:50+00:00"
   },
   "methodology": {
     "measure": "pagamenti di cassa SIOPE dei Comuni",
