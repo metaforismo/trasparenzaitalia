@@ -1,229 +1,229 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-26T09:48:26+00:00",
+  "generatedAt": "2026-11-27T03:01:30+00:00",
   "scope": "municipalities",
   "year": 2026,
   "latestMonth": 11,
   "latestMonthLabel": "Novembre",
-  "totalPaid": 98929070281.3,
+  "totalPaid": 100912581269.25,
   "populationCovered": 58939649,
-  "nationalPerCapita": 1678.48,
+  "nationalPerCapita": 1712.13,
   "coverage": {
     "activeSiopeMunicipalities": 7900,
     "matchedToIpaRegion": 7893,
     "withMovements": 7893,
     "unmatchedToIpaRegion": 7,
-    "movementRows": 8091751,
-    "includedMovementRows": 6459643,
+    "movementRows": 8098925,
+    "includedMovementRows": 6465044,
     "malformedRows": 0
   },
   "monthly": [
     {
       "month": 1,
       "label": "Gennaio",
-      "flow": 7453086039.95,
-      "cumulative": 7453086039.95
+      "flow": 7453085018.06,
+      "cumulative": 7453085018.06
     },
     {
       "month": 2,
       "label": "Febbraio",
-      "flow": 8428667674.74,
-      "cumulative": 15881753714.69
+      "flow": 8428655536.35,
+      "cumulative": 15881740554.41
     },
     {
       "month": 3,
       "label": "Marzo",
-      "flow": 9684158344.86,
-      "cumulative": 25565912059.55
+      "flow": 9684155545.24,
+      "cumulative": 25565896099.65
     },
     {
       "month": 4,
       "label": "Aprile",
-      "flow": 9884335719.97,
-      "cumulative": 35450247779.52
+      "flow": 9884659763.81,
+      "cumulative": 35450555863.46
     },
     {
       "month": 5,
       "label": "Maggio",
-      "flow": 9601212815.77,
-      "cumulative": 45051460595.29
+      "flow": 9601212808.1,
+      "cumulative": 45051768671.56
     },
     {
       "month": 6,
       "label": "Giugno",
-      "flow": 11426332816.23,
-      "cumulative": 56477793411.52
+      "flow": 11426317854.37,
+      "cumulative": 56478086525.93
     },
     {
       "month": 7,
       "label": "Luglio",
-      "flow": 11070700155.13,
-      "cumulative": 67548493566.65
+      "flow": 11070693222.06,
+      "cumulative": 67548779747.99
     },
     {
       "month": 8,
       "label": "Agosto",
-      "flow": 8722988310.48,
-      "cumulative": 76271481877.13
+      "flow": 8722988287.26,
+      "cumulative": 76271768035.25
     },
     {
       "month": 9,
       "label": "Settembre",
-      "flow": 8365263667.51,
-      "cumulative": 84636745544.64
+      "flow": 8365258496.31,
+      "cumulative": 84637026531.56
     },
     {
       "month": 10,
       "label": "Ottobre",
-      "flow": 9006877822.84,
-      "cumulative": 93643623367.48
+      "flow": 9006060424.77,
+      "cumulative": 93643086956.33
     },
     {
       "month": 11,
       "label": "Novembre",
-      "flow": 5285446913.82,
-      "cumulative": 98929070281.3
+      "flow": 7269494312.92,
+      "cumulative": 100912581269.25
     }
   ],
   "regions": [
     {
       "region": "Lombardia",
-      "value": 14730439030.0,
+      "value": 15018509581.96,
       "population": 10011929,
-      "perCapita": 1471.29,
+      "perCapita": 1500.06,
       "municipalities": 1501
     },
     {
       "region": "Lazio",
-      "value": 11101149994.8,
+      "value": 11288568216.26,
       "population": 5714745,
-      "perCapita": 1942.55,
+      "perCapita": 1975.34,
       "municipalities": 378
     },
     {
       "region": "Campania",
-      "value": 8416089703.42,
+      "value": 8598495475.72,
       "population": 5576133,
-      "perCapita": 1509.31,
+      "perCapita": 1542.02,
       "municipalities": 549
     },
     {
       "region": "Sicilia",
-      "value": 8230620662.15,
+      "value": 8386188185.84,
       "population": 4797359,
-      "perCapita": 1715.66,
+      "perCapita": 1748.08,
       "municipalities": 391
     },
     {
       "region": "Emilia-Romagna",
-      "value": 6878613801.95,
+      "value": 7015179145.98,
       "population": 4451938,
-      "perCapita": 1545.08,
+      "perCapita": 1575.76,
       "municipalities": 330
     },
     {
       "region": "Veneto",
-      "value": 6552881739.32,
+      "value": 6677331194.79,
       "population": 4846305,
-      "perCapita": 1352.14,
+      "perCapita": 1377.82,
       "municipalities": 559
     },
     {
       "region": "Toscana",
-      "value": 6230831200.2,
+      "value": 6369804148.33,
       "population": 3660530,
-      "perCapita": 1702.17,
+      "perCapita": 1740.13,
       "municipalities": 273
     },
     {
       "region": "Piemonte",
-      "value": 6061481792.56,
+      "value": 6177064362.89,
       "population": 4251355,
-      "perCapita": 1425.78,
+      "perCapita": 1452.96,
       "municipalities": 1180
     },
     {
       "region": "Puglia",
-      "value": 5807833629.13,
+      "value": 5931527878.88,
       "population": 3890661,
-      "perCapita": 1492.76,
+      "perCapita": 1524.56,
       "municipalities": 257
     },
     {
       "region": "Calabria",
-      "value": 4198685282.01,
+      "value": 4285961481.65,
       "population": 1838568,
-      "perCapita": 2283.67,
+      "perCapita": 2331.14,
       "municipalities": 404
     },
     {
       "region": "Sardegna",
-      "value": 3300365029.56,
+      "value": 3354017726.18,
       "population": 1568211,
-      "perCapita": 2104.54,
+      "perCapita": 2138.75,
       "municipalities": 377
     },
     {
       "region": "Liguria",
-      "value": 3112405378.33,
+      "value": 3181117810.55,
       "population": 1509140,
-      "perCapita": 2062.37,
+      "perCapita": 2107.9,
       "municipalities": 234
     },
     {
       "region": "Trentino-Alto Adige/Südtirol",
-      "value": 2986235970.97,
+      "value": 3048285487.76,
       "population": 1077440,
-      "perCapita": 2771.6,
+      "perCapita": 2829.19,
       "municipalities": 282
     },
     {
       "region": "Marche",
-      "value": 2932530768.38,
+      "value": 3006561119.27,
       "population": 1482746,
-      "perCapita": 1977.77,
+      "perCapita": 2027.7,
       "municipalities": 225
     },
     {
       "region": "Abruzzo",
-      "value": 2713468691.34,
+      "value": 2768057266.11,
       "population": 1269571,
-      "perCapita": 2137.31,
+      "perCapita": 2180.31,
       "municipalities": 305
     },
     {
       "region": "Friuli-Venezia Giulia",
-      "value": 2423534290.66,
+      "value": 2489263983.83,
       "population": 1194616,
-      "perCapita": 2028.71,
+      "perCapita": 2083.74,
       "municipalities": 215
     },
     {
       "region": "Umbria",
-      "value": 1339363822.69,
+      "value": 1367716106.66,
       "population": 853068,
-      "perCapita": 1570.06,
+      "perCapita": 1603.29,
       "municipalities": 92
     },
     {
       "region": "Basilicata",
-      "value": 954588245.67,
+      "value": 973691143.94,
       "population": 533233,
-      "perCapita": 1790.19,
+      "perCapita": 1826.01,
       "municipalities": 131
     },
     {
       "region": "Molise",
-      "value": 571681212.38,
+      "value": 580792186.39,
       "population": 289224,
-      "perCapita": 1976.6,
+      "perCapita": 2008.11,
       "municipalities": 136
     },
     {
       "region": "Valle d'Aosta/Vallée d'Aoste",
-      "value": 386270035.78,
+      "value": 394448766.26,
       "population": 122877,
-      "perCapita": 3143.55,
+      "perCapita": 3210.11,
       "municipalities": 74
     }
   ],
@@ -231,37 +231,37 @@
     {
       "code": "1",
       "label": "Spese correnti",
-      "value": 55141025913.92
+      "value": 56335146314.6
     },
     {
       "code": "2",
       "label": "Spese in conto capitale",
-      "value": 23207577426.87
+      "value": 23768904552.54
     },
     {
       "code": "7",
       "label": "Uscite per conto terzi e partite di giro",
-      "value": 13980244567.45
+      "value": 14291831372.17
     },
     {
       "code": "5",
       "label": "Chiusura anticipazioni da tesoriere/cassiere",
-      "value": 2326531439.38
+      "value": 2370148878.62
     },
     {
       "code": "0",
       "label": "Pagamenti da regolarizzare",
-      "value": 1820788219.77
+      "value": 1674905232.72
     },
     {
       "code": "4",
       "label": "Rimborso prestiti",
-      "value": 1603960890.95
+      "value": 1613153770.76
     },
     {
       "code": "3",
       "label": "Spese per incremento di attività finanziarie",
-      "value": 848941822.96
+      "value": 858491147.84
     }
   ],
   "topMunicipalities": [
@@ -270,800 +270,800 @@
       "region": "Lazio",
       "codiceFiscale": "02438750586",
       "population": 2751747,
-      "value": 6666224241.44,
-      "perCapita": 2422.54
+      "value": 6761978977.42,
+      "perCapita": 2457.34
     },
     {
       "name": "COMUNE DI MILANO",
       "region": "Lombardia",
       "codiceFiscale": "01199250158",
       "population": 1371499,
-      "value": 4094691629.23,
-      "perCapita": 2985.56
+      "value": 4126324465.56,
+      "perCapita": 3008.62
     },
     {
       "name": "COMUNE DI NAPOLI",
       "region": "Campania",
       "codiceFiscale": "80014890638",
       "population": 913704,
-      "value": 1708261068.15,
-      "perCapita": 1869.6
+      "value": 1742336293.98,
+      "perCapita": 1906.89
     },
     {
       "name": "COMUNE DI TORINO",
       "region": "Piemonte",
       "codiceFiscale": "00514490010",
       "population": 851199,
-      "value": 1515554584.68,
-      "perCapita": 1780.49
+      "value": 1551437134.25,
+      "perCapita": 1822.65
     },
     {
       "name": "COMUNE DI GENOVA",
       "region": "Liguria",
       "codiceFiscale": "00856930102",
       "population": 562422,
-      "value": 1245892474.67,
-      "perCapita": 2215.23
+      "value": 1276470573.1,
+      "perCapita": 2269.6
     },
     {
       "name": "COMUNE DI VENEZIA",
       "region": "Veneto",
       "codiceFiscale": "00339370272",
       "population": 250290,
-      "value": 1111596714.5,
-      "perCapita": 4441.24
+      "value": 1133239956.8,
+      "perCapita": 4527.71
     },
     {
       "name": "COMUNE DI BOLOGNA",
       "region": "Emilia-Romagna",
       "codiceFiscale": "01232710374",
       "population": 390098,
-      "value": 1072279035.41,
-      "perCapita": 2748.74
+      "value": 1102832862.85,
+      "perCapita": 2827.07
     },
     {
       "name": "COMUNE DI FIRENZE",
       "region": "Toscana",
       "codiceFiscale": "01307110484",
       "population": 362613,
-      "value": 1017105454.79,
-      "perCapita": 2804.93
+      "value": 1044302127.56,
+      "perCapita": 2879.94
     },
     {
       "name": "COMUNE DI PALERMO",
       "region": "Sicilia",
       "codiceFiscale": "80016350821",
       "population": 630427,
-      "value": 795748596.52,
-      "perCapita": 1262.24
+      "value": 805842756.08,
+      "perCapita": 1278.25
     },
     {
       "name": "COMUNE DI MESSINA",
       "region": "Sicilia",
       "codiceFiscale": "00080270838",
       "population": 217959,
-      "value": 752570297.87,
-      "perCapita": 3452.81
+      "value": 759637031.38,
+      "perCapita": 3485.23
     },
     {
       "name": "COMUNE DI BARI",
       "region": "Puglia",
       "codiceFiscale": "80015010723",
       "population": 316226,
-      "value": 647046123.64,
-      "perCapita": 2046.15
+      "value": 661925522.63,
+      "perCapita": 2093.2
     },
     {
       "name": "COMUNE DI TARANTO",
       "region": "Puglia",
       "codiceFiscale": "80008750731",
       "population": 187025,
-      "value": 525823033.49,
-      "perCapita": 2811.51
+      "value": 542744541.74,
+      "perCapita": 2901.99
     },
     {
       "name": "COMUNE DI CATANIA",
       "region": "Sicilia",
       "codiceFiscale": "00137020871",
       "population": 298680,
-      "value": 523807000.84,
-      "perCapita": 1753.74
+      "value": 531023446.81,
+      "perCapita": 1777.9
     },
     {
       "name": "COMUNE DI PADOVA",
       "region": "Veneto",
       "codiceFiscale": "00644060287",
       "population": 207502,
-      "value": 493327452.67,
-      "perCapita": 2377.46
+      "value": 499268703.11,
+      "perCapita": 2406.09
     },
     {
       "name": "COMUNE DI BRESCIA",
       "region": "Lombardia",
       "codiceFiscale": "00761890177",
       "population": 198259,
-      "value": 450948937.22,
-      "perCapita": 2274.54
+      "value": 471655160.14,
+      "perCapita": 2378.98
     },
     {
       "name": "COMUNE DI VERONA",
       "region": "Veneto",
       "codiceFiscale": "00215150236",
       "population": 255298,
-      "value": 423816600.56,
-      "perCapita": 1660.09
+      "value": 425807817.12,
+      "perCapita": 1667.89
     },
     {
       "name": "COMUNE DI TRIESTE",
       "region": "Friuli-Venezia Giulia",
       "codiceFiscale": "00210240321",
       "population": 198843,
-      "value": 390521131.91,
-      "perCapita": 1963.97
+      "value": 403711453.26,
+      "perCapita": 2030.3
     },
     {
       "name": "COMUNE DI BOLZANO",
       "region": "Trentino-Alto Adige/Südtirol",
       "codiceFiscale": "00389240219",
       "population": 106357,
-      "value": 368525420.2,
-      "perCapita": 3464.99
+      "value": 373240236.59,
+      "perCapita": 3509.32
     },
     {
       "name": "COMUNE DI L'AQUILA",
       "region": "Abruzzo",
       "codiceFiscale": "80002270660",
       "population": 69717,
-      "value": 353771257.2,
-      "perCapita": 5074.39
+      "value": 366894889.88,
+      "perCapita": 5262.63
     },
     {
       "name": "COMUNE DI CAGLIARI",
       "region": "Sardegna",
       "codiceFiscale": "00147990923",
       "population": 147411,
-      "value": 328584785.03,
-      "perCapita": 2229.04
+      "value": 330249471.79,
+      "perCapita": 2240.33
     },
     {
       "name": "COMUNE DI PARMA",
       "region": "Emilia-Romagna",
       "codiceFiscale": "00162210348",
       "population": 198121,
-      "value": 304073330.12,
-      "perCapita": 1534.79
+      "value": 305314021.72,
+      "perCapita": 1541.05
     },
     {
       "name": "COMUNE DI MODENA",
       "region": "Emilia-Romagna",
       "codiceFiscale": "00221940364",
       "population": 184597,
-      "value": 283987882.08,
-      "perCapita": 1538.42
+      "value": 289446026.74,
+      "perCapita": 1567.99
     },
     {
       "name": "COMUNE DI RIMINI",
       "region": "Emilia-Romagna",
       "codiceFiscale": "00304260409",
       "population": 150046,
-      "value": 279703351.79,
-      "perCapita": 1864.12
+      "value": 288375116.93,
+      "perCapita": 1921.91
     },
     {
       "name": "COMUNE DI ANCONA",
       "region": "Marche",
       "codiceFiscale": "00351040423",
       "population": 99377,
-      "value": 274737639.58,
-      "perCapita": 2764.6
+      "value": 281561924.52,
+      "perCapita": 2833.27
     },
     {
       "name": "COMUNE DI TRENTO",
       "region": "Trentino-Alto Adige/Südtirol",
       "codiceFiscale": "00355870221",
       "population": 118504,
-      "value": 267660301.85,
-      "perCapita": 2258.66
+      "value": 271255499.01,
+      "perCapita": 2289.0
     },
     {
       "name": "COMUNE DI BERGAMO",
       "region": "Lombardia",
       "codiceFiscale": "80034840167",
       "population": 120157,
-      "value": 258746503.51,
-      "perCapita": 2153.4
+      "value": 267104279.32,
+      "perCapita": 2222.96
     },
     {
       "name": "COMUNE DI PERUGIA",
       "region": "Umbria",
       "codiceFiscale": "00163570542",
       "population": 162099,
-      "value": 256661159.67,
-      "perCapita": 1583.36
+      "value": 263303598.6,
+      "perCapita": 1624.34
     },
     {
       "name": "COMUNE DI PRATO",
       "region": "Toscana",
       "codiceFiscale": "84006890481",
       "population": 197088,
-      "value": 249502397.44,
-      "perCapita": 1265.94
-    },
-    {
-      "name": "COMUNE DI CORIGLIANO-ROSSANO",
-      "region": "Calabria",
-      "codiceFiscale": "03557570789",
-      "population": 74268,
-      "value": 248921345.74,
-      "perCapita": 3351.66
+      "value": 254680096.18,
+      "perCapita": 1292.22
     },
     {
       "name": "COMUNE DI LIVORNO",
       "region": "Toscana",
       "codiceFiscale": "00104330493",
       "population": 153418,
-      "value": 244986280.54,
-      "perCapita": 1596.85
+      "value": 253979844.97,
+      "perCapita": 1655.48
+    },
+    {
+      "name": "COMUNE DI CORIGLIANO-ROSSANO",
+      "region": "Calabria",
+      "codiceFiscale": "03557570789",
+      "population": 74268,
+      "value": 253754640.14,
+      "perCapita": 3416.74
     },
     {
       "name": "COMUNE DI ALESSANDRIA",
       "region": "Piemonte",
       "codiceFiscale": "00429440068",
       "population": 91854,
-      "value": 240671213.73,
-      "perCapita": 2620.15
+      "value": 244886657.29,
+      "perCapita": 2666.04
     },
     {
       "name": "COMUNE DI REGGIO NELL'EMILIA",
       "region": "Emilia-Romagna",
       "codiceFiscale": "00145920351",
       "population": 171207,
-      "value": 240086286.77,
-      "perCapita": 1402.32
+      "value": 243464701.71,
+      "perCapita": 1422.05
     },
     {
       "name": "COMUNE DI REGGIO DI CALABRIA",
       "region": "Calabria",
       "codiceFiscale": "00136380805",
       "population": 169679,
-      "value": 238629476.71,
-      "perCapita": 1406.36
+      "value": 239236736.43,
+      "perCapita": 1409.94
     },
     {
       "name": "COMUNE DI RAVENNA",
       "region": "Emilia-Romagna",
       "codiceFiscale": "00354730392",
       "population": 156304,
-      "value": 234129460.95,
-      "perCapita": 1497.91
+      "value": 236907111.16,
+      "perCapita": 1515.68
     },
     {
       "name": "COMUNE DI SALERNO",
       "region": "Campania",
       "codiceFiscale": "80000330656",
       "population": 126715,
-      "value": 230853172.97,
-      "perCapita": 1821.83
+      "value": 234711595.05,
+      "perCapita": 1852.28
     },
     {
       "name": "COMUNE DI UDINE",
       "region": "Friuli-Venezia Giulia",
       "codiceFiscale": "00168650307",
       "population": 98304,
-      "value": 227381698.51,
-      "perCapita": 2313.05
-    },
-    {
-      "name": "COMUNE DI FERRARA",
-      "region": "Emilia-Romagna",
-      "codiceFiscale": "00297110389",
-      "population": 129391,
-      "value": 224041935.98,
-      "perCapita": 1731.51
+      "value": 232164199.12,
+      "perCapita": 2361.7
     },
     {
       "name": "COMUNE DI CATANZARO",
       "region": "Calabria",
       "codiceFiscale": "00129520797",
       "population": 84109,
-      "value": 221572181.24,
-      "perCapita": 2634.35
+      "value": 230152784.91,
+      "perCapita": 2736.36
+    },
+    {
+      "name": "COMUNE DI FERRARA",
+      "region": "Emilia-Romagna",
+      "codiceFiscale": "00297110389",
+      "population": 129391,
+      "value": 230116766.9,
+      "perCapita": 1778.46
     },
     {
       "name": "COMUNE DI SASSARI",
       "region": "Sardegna",
       "codiceFiscale": "00239740905",
       "population": 121085,
-      "value": 202691040.39,
-      "perCapita": 1673.96
+      "value": 205974974.68,
+      "perCapita": 1701.08
     },
     {
       "name": "COMUNE DI COSENZA",
       "region": "Calabria",
       "codiceFiscale": "00347720781",
       "population": 63701,
-      "value": 199903507.9,
-      "perCapita": 3138.15
+      "value": 203043600.25,
+      "perCapita": 3187.45
     },
     {
       "name": "COMUNE DI PISA",
       "region": "Toscana",
       "codiceFiscale": "00341620508",
       "population": 89117,
-      "value": 199399749.73,
-      "perCapita": 2237.51
+      "value": 202956721.55,
+      "perCapita": 2277.42
     },
     {
       "name": "COMUNE DI LECCE",
       "region": "Puglia",
       "codiceFiscale": "80008510754",
       "population": 94250,
-      "value": 193108595.94,
-      "perCapita": 2048.9
+      "value": 197732295.37,
+      "perCapita": 2097.96
     },
     {
       "name": "COMUNE DI FIUMICINO",
       "region": "Lazio",
       "codiceFiscale": "97086740582",
       "population": 82481,
-      "value": 191647583.51,
-      "perCapita": 2323.54
-    },
-    {
-      "name": "COMUNE DI SIRACUSA",
-      "region": "Sicilia",
-      "codiceFiscale": "80001010893",
-      "population": 116247,
-      "value": 189868119.04,
-      "perCapita": 1633.32
+      "value": 196368737.55,
+      "perCapita": 2380.78
     },
     {
       "name": "COMUNE DI MONZA",
       "region": "Lombardia",
       "codiceFiscale": "02030880153",
       "population": 122883,
-      "value": 187276452.48,
-      "perCapita": 1524.02
+      "value": 192592006.86,
+      "perCapita": 1567.28
+    },
+    {
+      "name": "COMUNE DI SIRACUSA",
+      "region": "Sicilia",
+      "codiceFiscale": "80001010893",
+      "population": 116247,
+      "value": 192018897.31,
+      "perCapita": 1651.82
     },
     {
       "name": "COMUNE DI VICENZA",
       "region": "Veneto",
       "codiceFiscale": "00516890241",
       "population": 110299,
-      "value": 184860913.73,
-      "perCapita": 1676.0
+      "value": 191898548.17,
+      "perCapita": 1739.8
     },
     {
       "name": "COMUNE DI FOGGIA",
       "region": "Puglia",
       "codiceFiscale": "00363460718",
       "population": 145652,
-      "value": 177487213.06,
-      "perCapita": 1218.57
+      "value": 180599833.93,
+      "perCapita": 1239.94
     },
     {
       "name": "COMUNE DI NOVARA",
       "region": "Piemonte",
       "codiceFiscale": "00125680033",
       "population": 102187,
-      "value": 170293302.42,
-      "perCapita": 1666.49
+      "value": 173489719.77,
+      "perCapita": 1697.77
     },
     {
       "name": "COMUNE DI RICCIONE",
       "region": "Emilia-Romagna",
       "codiceFiscale": "00324360403",
       "population": 34465,
-      "value": 168979439.51,
-      "perCapita": 4902.93
+      "value": 171524388.02,
+      "perCapita": 4976.77
     },
     {
       "name": "COMUNE DI PIACENZA",
       "region": "Emilia-Romagna",
       "codiceFiscale": "00229080338",
       "population": 102887,
-      "value": 166931785.35,
-      "perCapita": 1622.48
+      "value": 169441941.62,
+      "perCapita": 1646.87
     },
     {
       "name": "COMUNE DI LA SPEZIA",
       "region": "Liguria",
       "codiceFiscale": "00211160114",
       "population": 92696,
-      "value": 163654446.09,
-      "perCapita": 1765.5
-    },
-    {
-      "name": "COMUNE DI PESCARA",
-      "region": "Abruzzo",
-      "codiceFiscale": "00124600685",
-      "population": 118461,
-      "value": 162084867.17,
-      "perCapita": 1368.26
+      "value": 165333979.15,
+      "perCapita": 1783.62
     },
     {
       "name": "COMUNE DI PESARO",
       "region": "Marche",
       "codiceFiscale": "00272430414",
       "population": 95392,
-      "value": 161638783.77,
-      "perCapita": 1694.47
+      "value": 164336150.85,
+      "perCapita": 1722.75
+    },
+    {
+      "name": "COMUNE DI PESCARA",
+      "region": "Abruzzo",
+      "codiceFiscale": "00124600685",
+      "population": 118461,
+      "value": 163885465.69,
+      "perCapita": 1383.46
     },
     {
       "name": "COMUNE DI FORLI'",
       "region": "Emilia-Romagna",
       "codiceFiscale": "00606620409",
       "population": 117050,
-      "value": 156814650.18,
-      "perCapita": 1339.72
+      "value": 163366805.75,
+      "perCapita": 1395.7
     },
     {
       "name": "COMUNE DI MACERATA",
       "region": "Marche",
       "codiceFiscale": "80001650433",
       "population": 40538,
-      "value": 152372756.62,
-      "perCapita": 3758.76
+      "value": 154586808.99,
+      "perCapita": 3813.38
     },
     {
       "name": "COMUNE DI LATINA",
       "region": "Lazio",
       "codiceFiscale": "00097020598",
       "population": 127859,
-      "value": 151223011.82,
-      "perCapita": 1182.73
+      "value": 154443546.19,
+      "perCapita": 1207.92
     },
     {
       "name": "COMUNE DI POZZUOLI",
       "region": "Campania",
       "codiceFiscale": "00508900636",
       "population": 76255,
-      "value": 145912323.34,
-      "perCapita": 1913.48
-    },
-    {
-      "name": "COMUNE DI LECCO",
-      "region": "Lombardia",
-      "codiceFiscale": "00623530136",
-      "population": 47125,
-      "value": 137834025.49,
-      "perCapita": 2924.86
+      "value": 148826815.3,
+      "perCapita": 1951.7
     },
     {
       "name": "COMUNE DI ASCOLI PICENO",
       "region": "Marche",
       "codiceFiscale": "00229010442",
       "population": 45448,
-      "value": 136611817.58,
-      "perCapita": 3005.89
+      "value": 148016585.57,
+      "perCapita": 3256.83
     },
     {
       "name": "COMUNE DI BRINDISI",
       "region": "Puglia",
       "codiceFiscale": "80000250748",
       "population": 82298,
-      "value": 136362878.45,
-      "perCapita": 1656.94
+      "value": 141489867.28,
+      "perCapita": 1719.24
     },
     {
-      "name": "COMUNE DI POMEZIA",
-      "region": "Lazio",
-      "codiceFiscale": "02298490588",
-      "population": 64451,
-      "value": 133575727.93,
-      "perCapita": 2072.52
+      "name": "COMUNE DI LECCO",
+      "region": "Lombardia",
+      "codiceFiscale": "00623530136",
+      "population": 47125,
+      "value": 140300113.26,
+      "perCapita": 2977.19
     },
     {
       "name": "COMUNE DI LUCCA",
       "region": "Toscana",
       "codiceFiscale": "00378210462",
       "population": 89234,
-      "value": 130518251.25,
-      "perCapita": 1462.65
+      "value": 136007495.84,
+      "perCapita": 1524.17
+    },
+    {
+      "name": "COMUNE DI POMEZIA",
+      "region": "Lazio",
+      "codiceFiscale": "02298490588",
+      "population": 64451,
+      "value": 135385952.57,
+      "perCapita": 2100.6
     },
     {
       "name": "COMUNE DI TERNI",
       "region": "Umbria",
       "codiceFiscale": "00175660554",
       "population": 106436,
-      "value": 130410798.37,
-      "perCapita": 1225.25
-    },
-    {
-      "name": "COMUNE DI PISTOIA",
-      "region": "Toscana",
-      "codiceFiscale": "00108690470",
-      "population": 89054,
-      "value": 129268669.85,
-      "perCapita": 1451.58
-    },
-    {
-      "name": "COMUNE DI PORDENONE",
-      "region": "Friuli-Venezia Giulia",
-      "codiceFiscale": "80002150938",
-      "population": 52147,
-      "value": 128972169.24,
-      "perCapita": 2473.24
-    },
-    {
-      "name": "COMUNE DI CESENA",
-      "region": "Emilia-Romagna",
-      "codiceFiscale": "00143280402",
-      "population": 96066,
-      "value": 128548810.38,
-      "perCapita": 1338.13
+      "value": 133561916.19,
+      "perCapita": 1254.86
     },
     {
       "name": "COMUNE DI TREVISO",
       "region": "Veneto",
       "codiceFiscale": "80007310263",
       "population": 85322,
-      "value": 127645915.51,
-      "perCapita": 1496.05
+      "value": 131907989.22,
+      "perCapita": 1546.0
+    },
+    {
+      "name": "COMUNE DI PORDENONE",
+      "region": "Friuli-Venezia Giulia",
+      "codiceFiscale": "80002150938",
+      "population": 52147,
+      "value": 131165834.75,
+      "perCapita": 2515.31
+    },
+    {
+      "name": "COMUNE DI PISTOIA",
+      "region": "Toscana",
+      "codiceFiscale": "00108690470",
+      "population": 89054,
+      "value": 130236168.75,
+      "perCapita": 1462.44
+    },
+    {
+      "name": "COMUNE DI CESENA",
+      "region": "Emilia-Romagna",
+      "codiceFiscale": "00143280402",
+      "population": 96066,
+      "value": 129417599.23,
+      "perCapita": 1347.17
     },
     {
       "name": "COMUNE DI SANREMO",
       "region": "Liguria",
       "codiceFiscale": "00253750087",
       "population": 52992,
-      "value": 126013611.7,
-      "perCapita": 2377.97
-    },
-    {
-      "name": "COMUNE DI OLBIA",
-      "region": "Sardegna",
-      "codiceFiscale": "91008330903",
-      "population": 61481,
-      "value": 123391121.61,
-      "perCapita": 2006.98
-    },
-    {
-      "name": "COMUNE DI GALLARATE",
-      "region": "Lombardia",
-      "codiceFiscale": "00560180127",
-      "population": 52963,
-      "value": 123055898.65,
-      "perCapita": 2323.43
+      "value": 129074064.66,
+      "perCapita": 2435.73
     },
     {
       "name": "COMUNE DI COMO",
       "region": "Lombardia",
       "codiceFiscale": "80005370137",
       "population": 83586,
-      "value": 122800281.97,
-      "perCapita": 1469.15
+      "value": 128239875.09,
+      "perCapita": 1534.23
     },
     {
-      "name": "COMUNE DI AREZZO",
-      "region": "Toscana",
-      "codiceFiscale": "00176820512",
-      "population": 96330,
-      "value": 122495155.66,
-      "perCapita": 1271.62
+      "name": "COMUNE DI GALLARATE",
+      "region": "Lombardia",
+      "codiceFiscale": "00560180127",
+      "population": 52963,
+      "value": 126674803.84,
+      "perCapita": 2391.76
     },
     {
       "name": "COMUNE DI VARESE",
       "region": "Lombardia",
       "codiceFiscale": "00441340122",
       "population": 78818,
-      "value": 121490725.1,
-      "perCapita": 1541.41
+      "value": 125261611.18,
+      "perCapita": 1589.25
     },
     {
-      "name": "COMUNE DI SIENA",
+      "name": "COMUNE DI OLBIA",
+      "region": "Sardegna",
+      "codiceFiscale": "91008330903",
+      "population": 61481,
+      "value": 125230170.76,
+      "perCapita": 2036.89
+    },
+    {
+      "name": "COMUNE DI AREZZO",
       "region": "Toscana",
-      "codiceFiscale": "00050800523",
-      "population": 52833,
-      "value": 118139281.39,
-      "perCapita": 2236.09
+      "codiceFiscale": "00176820512",
+      "population": 96330,
+      "value": 123878791.9,
+      "perCapita": 1285.98
     },
     {
       "name": "COMUNE DI GROSSETO",
       "region": "Toscana",
       "codiceFiscale": "00082520537",
       "population": 81482,
-      "value": 117487918.94,
-      "perCapita": 1441.89
-    },
-    {
-      "name": "COMUNE DI MASSA",
-      "region": "Toscana",
-      "codiceFiscale": "00181760455",
-      "population": 65992,
-      "value": 116257616.41,
-      "perCapita": 1761.69
+      "value": 121993132.99,
+      "perCapita": 1497.18
     },
     {
       "name": "COMUNE DI FERMO",
       "region": "Marche",
       "codiceFiscale": "00334990447",
       "population": 35842,
-      "value": 114519171.61,
-      "perCapita": 3195.11
+      "value": 120270569.82,
+      "perCapita": 3355.58
+    },
+    {
+      "name": "COMUNE DI SIENA",
+      "region": "Toscana",
+      "codiceFiscale": "00050800523",
+      "population": 52833,
+      "value": 120188678.58,
+      "perCapita": 2274.88
+    },
+    {
+      "name": "COMUNE DI MASSA",
+      "region": "Toscana",
+      "codiceFiscale": "00181760455",
+      "population": 65992,
+      "value": 117041811.04,
+      "perCapita": 1773.58
     },
     {
       "name": "COMUNE DI VIAREGGIO",
       "region": "Toscana",
       "codiceFiscale": "00274950468",
       "population": 60755,
-      "value": 111764227.01,
-      "perCapita": 1839.59
+      "value": 113704228.79,
+      "perCapita": 1871.52
     },
     {
       "name": "COMUNE DI MANTOVA",
       "region": "Lombardia",
       "codiceFiscale": "00189800204",
       "population": 49044,
-      "value": 111128997.23,
-      "perCapita": 2265.9
+      "value": 112657984.66,
+      "perCapita": 2297.08
     },
     {
       "name": "COMUNE DI LAMEZIA TERME",
       "region": "Calabria",
       "codiceFiscale": "00301390795",
       "population": 67246,
-      "value": 108503205.73,
-      "perCapita": 1613.53
+      "value": 110953616.12,
+      "perCapita": 1649.97
     },
     {
       "name": "COMUNE DI ANDRIA",
       "region": "Puglia",
       "codiceFiscale": "81001210723",
       "population": 96941,
-      "value": 108303425.04,
-      "perCapita": 1117.21
+      "value": 109310800.68,
+      "perCapita": 1127.6
     },
     {
       "name": "COMUNE DI BENEVENTO",
       "region": "Campania",
       "codiceFiscale": "00074270620",
       "population": 56048,
-      "value": 106895781.02,
-      "perCapita": 1907.22
-    },
-    {
-      "name": "COMUNE DI CREMONA",
-      "region": "Lombardia",
-      "codiceFiscale": "00297960197",
-      "population": 70675,
-      "value": 104990483.17,
-      "perCapita": 1485.54
-    },
-    {
-      "name": "COMUNE DI QUARTU SANT'ELENA",
-      "region": "Sardegna",
-      "codiceFiscale": "00288630924",
-      "population": 68509,
-      "value": 104779269.89,
-      "perCapita": 1529.42
+      "value": 107622868.98,
+      "perCapita": 1920.19
     },
     {
       "name": "COMUNE DI RAGUSA",
       "region": "Sicilia",
       "codiceFiscale": "00180270886",
       "population": 73736,
-      "value": 104085385.02,
-      "perCapita": 1411.6
+      "value": 107020342.65,
+      "perCapita": 1451.4
+    },
+    {
+      "name": "COMUNE DI QUARTU SANT'ELENA",
+      "region": "Sardegna",
+      "codiceFiscale": "00288630924",
+      "population": 68509,
+      "value": 106272244.55,
+      "perCapita": 1551.22
+    },
+    {
+      "name": "COMUNE DI CREMONA",
+      "region": "Lombardia",
+      "codiceFiscale": "00297960197",
+      "population": 70675,
+      "value": 106183952.09,
+      "perCapita": 1502.43
     },
     {
       "name": "COMUNE DI BAGHERIA",
       "region": "Sicilia",
       "codiceFiscale": "81000170829",
       "population": 53010,
-      "value": 103702724.85,
-      "perCapita": 1956.29
-    },
-    {
-      "name": "COMUNE DI CUNEO",
-      "region": "Piemonte",
-      "codiceFiscale": "00480530047",
-      "population": 55914,
-      "value": 102865850.01,
-      "perCapita": 1839.72
-    },
-    {
-      "name": "COMUNE DI VITERBO",
-      "region": "Lazio",
-      "codiceFiscale": "80008850564",
-      "population": 66188,
-      "value": 102306057.65,
-      "perCapita": 1545.69
+      "value": 105438475.52,
+      "perCapita": 1989.03
     },
     {
       "name": "COMUNE DI PAVIA",
       "region": "Lombardia",
       "codiceFiscale": "00296180185",
       "population": 71297,
-      "value": 102218648.38,
-      "perCapita": 1433.7
+      "value": 103862170.82,
+      "perCapita": 1456.75
     },
     {
-      "name": "COMUNE DI MAZARA DEL VALLO",
-      "region": "Sicilia",
-      "codiceFiscale": "82001410818",
-      "population": 50029,
-      "value": 101381720.68,
-      "perCapita": 2026.46
+      "name": "COMUNE DI CUNEO",
+      "region": "Piemonte",
+      "codiceFiscale": "00480530047",
+      "population": 55914,
+      "value": 103800032.19,
+      "perCapita": 1856.42
     },
     {
       "name": "COMUNE DI GIUGLIANO IN CAMPANIA",
       "region": "Campania",
       "codiceFiscale": "80049220637",
       "population": 124209,
-      "value": 100462219.68,
-      "perCapita": 808.82
+      "value": 103151760.61,
+      "perCapita": 830.47
+    },
+    {
+      "name": "COMUNE DI VITERBO",
+      "region": "Lazio",
+      "codiceFiscale": "80008850564",
+      "population": 66188,
+      "value": 103146127.68,
+      "perCapita": 1558.38
     },
     {
       "name": "COMUNE DI SESTO SAN GIOVANNI",
       "region": "Lombardia",
       "codiceFiscale": "02253930156",
       "population": 78495,
-      "value": 100345923.89,
-      "perCapita": 1278.37
+      "value": 102989847.96,
+      "perCapita": 1312.06
     },
     {
-      "name": "COMUNE DI SANTA MARIA CAPUA VETERE",
-      "region": "Campania",
-      "codiceFiscale": "00136270618",
-      "population": 32122,
-      "value": 100208175.89,
-      "perCapita": 3119.61
-    },
-    {
-      "name": "COMUNE DI CARRARA",
-      "region": "Toscana",
-      "codiceFiscale": "00079450458",
-      "population": 59757,
-      "value": 99593072.22,
-      "perCapita": 1666.63
-    },
-    {
-      "name": "COMUNE DI CAMAIORE",
-      "region": "Toscana",
-      "codiceFiscale": "00190560466",
-      "population": 31864,
-      "value": 98477100.23,
-      "perCapita": 3090.54
-    },
-    {
-      "name": "COMUNE DI MARSALA",
+      "name": "COMUNE DI MAZARA DEL VALLO",
       "region": "Sicilia",
-      "codiceFiscale": "00139550818",
-      "population": 79835,
-      "value": 97038665.71,
-      "perCapita": 1215.49
+      "codiceFiscale": "82001410818",
+      "population": 50029,
+      "value": 102791237.94,
+      "perCapita": 2054.63
     },
     {
       "name": "COMUNE DI FANO",
       "region": "Marche",
       "codiceFiscale": "00127440410",
       "population": 59992,
-      "value": 96993639.85,
-      "perCapita": 1616.78
+      "value": 101855840.11,
+      "perCapita": 1697.82
+    },
+    {
+      "name": "COMUNE DI CARRARA",
+      "region": "Toscana",
+      "codiceFiscale": "00079450458",
+      "population": 59757,
+      "value": 101639510.39,
+      "perCapita": 1700.88
+    },
+    {
+      "name": "COMUNE DI SANTA MARIA CAPUA VETERE",
+      "region": "Campania",
+      "codiceFiscale": "00136270618",
+      "population": 32122,
+      "value": 101157276.09,
+      "perCapita": 3149.16
+    },
+    {
+      "name": "COMUNE DI CAMAIORE",
+      "region": "Toscana",
+      "codiceFiscale": "00190560466",
+      "population": 31864,
+      "value": 100627217.37,
+      "perCapita": 3158.02
+    },
+    {
+      "name": "COMUNE DI MARSALA",
+      "region": "Sicilia",
+      "codiceFiscale": "00139550818",
+      "population": 79835,
+      "value": 98721216.56,
+      "perCapita": 1236.57
     },
     {
       "name": "COMUNE DI TRAPANI",
       "region": "Sicilia",
       "codiceFiscale": "80003210814",
       "population": 55229,
-      "value": 96738350.72,
-      "perCapita": 1751.59
+      "value": 97397624.21,
+      "perCapita": 1763.52
     },
     {
       "name": "COMUNE DI ORISTANO",
       "region": "Sardegna",
       "codiceFiscale": "00052090958",
       "population": 30287,
-      "value": 95126827.05,
-      "perCapita": 3140.85
+      "value": 96515137.14,
+      "perCapita": 3186.69
     },
     {
-      "name": "COMUNE DI IMOLA",
-      "region": "Emilia-Romagna",
-      "codiceFiscale": "00794470377",
-      "population": 69332,
-      "value": 94537856.27,
-      "perCapita": 1363.55
+      "name": "COMUNE DI BUSTO ARSIZIO",
+      "region": "Lombardia",
+      "codiceFiscale": "00224000125",
+      "population": 83372,
+      "value": 95615401.4,
+      "perCapita": 1146.85
     }
   ],
   "source": {
@@ -1071,10 +1071,10 @@
     "siopeMovementsUrl": "https://www.siope.it/documenti/siope2/open/last/SIOPE_USCITE.2026.zip",
     "siopeRegistryUrl": "https://www.siope.it/documenti/siope2/open/last/SIOPE_ANAGRAFICHE.zip",
     "ipaUrl": "https://indicepa.gov.it/ipa-dati/dataset/502ff370-1b2c-4310-94c7-f39ceb7500e3/resource/3ed63523-ff9c-41f6-a6fe-980f3d9e501f/download/amministrazioni.txt",
-    "siopeMovementsLastModified": "Thu, 19 Nov 2026 20:12:51 GMT",
-    "siopeRegistryLastModified": "Thu, 19 Nov 2026 20:12:50 GMT",
+    "siopeMovementsLastModified": "Thu, 26 Nov 2026 20:12:09 GMT",
+    "siopeRegistryLastModified": "Thu, 26 Nov 2026 20:12:08 GMT",
     "ipaLastModified": "Thu, 26 Nov 2026 04:17:39 GMT",
-    "observedAt": "2026-11-26T09:48:26+00:00"
+    "observedAt": "2026-11-27T03:01:30+00:00"
   },
   "methodology": {
     "measure": "pagamenti di cassa SIOPE dei Comuni",
